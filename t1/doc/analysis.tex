@@ -1,66 +1,98 @@
 \section{Theoretical Analysis}
 \label{sec:analysis}
 
-In this section, the circuit shown in Figure~\ref{fig:rc} is analysed
-theoretically, in terms of its time and frequency responses.
+In this section, the circuit shown in Figure~\ref{fig:t1} is analysed
+theoretically, in terms of each branch's current and voltage.
 
-\section{Time response}
+\section{Nodal Analysis}
 
-The circuit consists of a single V-R-C loop where a current $i(t)$ circulates. The
-voltage source $v_I(t)$ drives its input, and the output voltage $v_O(t)$ is taken from
-the capacitor terminals. Applying the Kirchhoff Voltage Law (KVL), a single
-equation for the single loop in the circuit can be written as
+This method is based on Kirchhoff's Current Law (KCL), and firstly consists in
+deriving equations for the current flow in nodes not connected to voltage sources,
+followed by writing aditional equations in nodes related to voltage sources. The node 
+identification can be seen on Figure~\ref{fig:t1}. Moreover, the equations relative to
+nodes 0, 2, 5 and 0 , respectively, are
 
 \begin{equation}
-  Ri(t) + v_O(t) = v_I(t).
+  (V_0 - V_4)G_4 + (V_0 - V_6)G_6 + (V_1 - V_2)G_1 = 0 
   \label{eq:kvl}
 \end{equation}
 
-Because $v_O$ is the voltage between capacitor C's plates, it is related to the
-current $i$ by
 \begin{equation}
-  i(t) = C\frac{dv_O}{dt}.
-\end{equation}
-
-Hence, Equation~(\ref{eq:kvl}) can be rewritten as
-\begin{equation}
-  RC\frac{dv_O}{dt} + v_O(t) = v_I.
+  (V_2 - V_1)G_1 + (V_2 - V_4)G_3 + (V_2 - V_3)G_2 = 0 
   \label{eq:kvl2}
 \end{equation}
 
-Equation~(\ref{eq:kvl2}) is a linear differencial equation whose solution is a
-superposition of a natural solution $v_{On}$ and a forced solution $v_{Of}$:
-
 \begin{equation}
-  v_O(t) = v_{On}(t) + v_{Of}(t).
-  \label{eq:vo_sol}
+  (V_5 - V_4)G_5 + I_b - I_d = 0 , I_b = K_b(V_2 - V_4) 
+  \label{eq:kvl3}
 \end{equation}
 
-As learned in the theory classes the natural solution is of the form
 \begin{equation}
-  v_{On}(t) = Ae^{-\frac{t}{RC}},
-  \label{eq:vo_nat}
+  (V_6 - V_7)G_7 + (V_0 - V_4)G_4 + (V_1 - V_2)G_1 = 0 
+  \label{eq:kvl4}
 \end{equation}
-where $A$ is an integration constant.
 
-The forced solution is of the form given in Equation~(\ref{eq:vo_for}) and is
-illustrated in Figure~\ref{fig:forced}.
+The aditional equations for the method are
 
 \begin{equation}
-  V_{Of}(t) = |\bar{V}_{Of}| cos(\omega t + \angle \bar{V}_{Of}),
-  \label{eq:vo_for}
+  V_0 = 0
+  \label{eq:kvl5}
+\end{equation}
+
+\begin{equation}
+  V_1 = V_a
+  \label{eq:kvl6}
+\end{equation}
+
+\begin{equation}
+  V_4 - V_7 = K_c(V_0 - V_6)G_6
+  \label{eq:kvl7}
+\end{equation}
+
+\begin{equation}
+  I_b = (V_3 - V_2)G_2 , I_b = K_b(V_2 - V_4)
+  \label{eq:kvl8}
+\end{equation}
+
+\section{Mesh Analysis}
+
+This method is based on Kirchoff's Voltage Law (KVL), and consists on analysing the circuit's meshes
+after creating arbitrary currents with arbitrary flows for each mesh in the circuit. The top left mesh
+was named mesh A with clockwhise current flow $I_a$; the top right mesh was named mesh B with counterclockwhise
+current flow $I_b$; the bottom left mesh was named mesh C with counterclockwhise current flow $I_c$; the bottom right
+mesh was named mesh D with counterclockwhise current flow $I_d$. Furthermore, the equations associated with these meshes
+and currents are
+
+\begin{equation}
+  R_1 I_A + R_3(I_A + I_B) + R_4(I_A + I_C) - V_a = 0
+  \label{eq:kvl}
+\end{equation}
+
+\begin{equation}
+R_6 I_C + R_7 I_C - K_c I_C + R_4(I_A + I_C) = 0
+  \label{eq:kvl2}
+\end{equation}
+
+\begin{equation}
+  I_D = I_d
+  \label{eq:kvl3}
+\end{equation}
+
+\begin{equation}
+  I_B = K_b R_3(I_A + I_B)
+  \label{eq:kvl4}
 \end{equation}
 
 %\lipsum[1-1]
 
 
-\begin{figure}[h] \centering
-\includegraphics[width=0.8\linewidth]{forced.eps}
-\caption{Forced sinusoidal response.}
-\label{fig:forced}
-\end{figure}
+%\begin{figure}[h] \centering
+%\includegraphics[width=0.8\linewidth]{forced.eps}
+%\caption{Forced sinusoidal response.}
+%\label{fig:forced}
+%\end{figure}
 
-\section{Frequency response}
+%\section{Frequency response}
 
 %\lipsum[1-1]
 

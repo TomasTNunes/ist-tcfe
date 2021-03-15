@@ -1,7 +1,7 @@
 close all
 clear all
 
-%%%%%%%%%%%%%%%%%%%EXAMPLE SYMBOLIC COMPUTATIONS%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%NUMERIC COMPUTATIONS%%%%%%%%%%%%%%%%%%%
 
 %pkg load symbolic
 
