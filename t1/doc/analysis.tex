@@ -3,8 +3,10 @@
 
 In this section, the circuit shown in Figure~\ref{fig:t1} is analysed
 theoretically, in terms of each branch's current and voltage.
+The current flows considered in the analysis are the following:
+R1 from node 1 to 2; R2 from node 2 to 3; R3 from node 2 to 4; R4 from node 4 to 0; R5 from node 4 to 5; R6 from node 0 to 6; R7 from node 6 to 7;
 
-\section{Nodal Analysis}
+\subsection{Nodal Analysis}
 
 This method is based on Kirchhoff's Current Law (KCL), and firstly consists in
 deriving equations for the current flow in nodes not connected to voltage sources,
@@ -54,7 +56,18 @@ The aditional equations for the method are
   \label{eq:kvl8}
 \end{equation}
 
-\section{Mesh Analysis}
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value [mA or V]} \\ \hline
+    \input{Nodal_tab}
+  \end{tabular}
+  \caption{Nodal Analysis' variable values, where Ij is expressed in milliampere and Vj is expressed in Volt.}
+  \label{tab:Nodal}
+\end{table}
+
+\subsection{Mesh Analysis}
 
 This method is based on Kirchoff's Voltage Law (KVL), and consists on analysing the circuit's meshes
 after creating arbitrary currents with arbitrary flows for each mesh in the circuit. The top left mesh
@@ -82,6 +95,17 @@ R_6 I_C + R_7 I_C - K_c I_C + R_4(I_A + I_C) = 0
   I_B = K_b R_3(I_A + I_B)
   \label{eq:kvl4}
 \end{equation}
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value [mA or V]} \\ \hline
+    \input{Mesh_tab}
+  \end{tabular}
+  \caption{Mesh Analysis' variable values, where Ij is expressed in milliampere and Vj is expressed in Volt.}
+  \label{tab:Mesh}
+\end{table}
 
 %\lipsum[1-1]
 

@@ -74,30 +74,88 @@ G7 = 1/R7;
 I_A = double(sm.I_A)
 I_B = double(sm.I_B)
 I_C = double(sm.I_C)
-I_D = double(sm.I_D)
-
-V1m = Va
-V2m = V1m-R1*I_A
-V3m = V2m+R2*I_B
-V4m = R4*(I_A+I_C)
-V5m = V4m-R5*(I_B-I_D)
-V6m = -R6*I_C
-V7m = V6m-R7*I_C
-V8m = V6m
-
+I_D = double(sm.I_D) 
+Ibm = I_B;
+Idm = Id;
+IR1m = I_A; 
+IR2m = -I_B;
+IR3m = I_A + I_B;
+IR4m = I_A + I_C ;
+IR5m = I_B - I_D ;
+IR6m = I_C ;
+IR7m = I_C ;
+V1m = Va;
+V2m = V1m-R1*I_A;
+V3m = V2m+R2*I_B;
+V4m = R4*(I_A+I_C);
+V5m = V4m-R5*(I_B-I_D);
+V6m = -R6*I_C;
+V7m = V6m-R7*I_C;
+V8m = V6m;
 
 %%%%%Nodal method%%%%%
 
-V1n = double(sn.V1n)
-V2n = double(sn.V2n)
-V3n = double(sn.V3n)
-V4n = double(sn.V4n)
-V5n = double(sn.V5n)
-V6n = double(sn.V6n)
-V7n = double(sn.V7n)
-V8n = V6n
+V1n = double(sn.V1n);
+V2n = double(sn.V2n);
+V3n = double(sn.V3n);
+V4n = double(sn.V4n);
+V5n = double(sn.V5n);
+V6n = double(sn.V6n);
+V7n = double(sn.V7n);
+V8n = V6n;
+Ibn = (V2n-V4n)*Kb;
+Idn = Id;
+IR1n = (V1n-V2n)*G1;
+IR2n = (V2n-V3n)*G2;
+IR3n = (V2n-V4n)*G3;
+IR4n = (V4n)*G4;
+IR5n = (V4n-V5n)*G5;
+IR6n = (-V6n)*G6;
+IR7n = (V6n-V7n)*G7;
 
 
+%%%%%%%%%%%%%%%%%%%TEXT WITH TABLE DATA%%%%%%%%%%%%%%%%%%%
+
+diary "Mesh_tab.tex"
+diary on
+printf("$I_b$ & %f\n", Ibm);
+printf("$I_d$ & %f\n", Idm);
+printf("$I_R$$_1$ & %f\n", IR1m);
+printf("$I_R$$_2$ & %f\n", IR2m);
+printf("$I_R$$_3$ & %f\n", IR3m);
+printf("$I_R$$_4$ & %f\n", IR4m);
+printf("$I_R$$_5$ & %f\n", IR5m);
+printf("$I_R$$_6$ & %f\n", IR6m);
+printf("$I_R$$_7$ & %f\n", IR7m);
+printf("$V_1$ & %f\n", V1m);
+printf("$V_2$ & %f\n", V2m);
+printf("$V_3$ & %f\n", V3m);
+printf("$V_4$ & %f\n", V4m);
+printf("$V_5$ & %f\n", V5m);
+printf("$V_6$ & %f\n", V6m);
+printf("$V_7$ & %f\n", V7m);
+printf("$V_8$ & %f\n", V8m);
+diary off
 
 
+diary "Nodal_tab.tex"
+diary on
+printf("$I_b$ & %f\n", Ibn);
+printf("$I_d$ & %f\n", Idn);
+printf("$I_R$$_1$ & %f\n", IR1n);
+printf("$I_R$$_2$ & %f\n", IR2n);
+printf("$I_R$$_3$ & %f\n", IR3n);
+printf("$I_R$$_4$ & %f\n", IR4n);
+printf("$I_R$$_5$ & %f\n", IR5n);
+printf("$I_R$$_6$ & %f\n", IR6n);
+printf("$I_R$$_7$ & %f\n", IR7n);
+printf("$V_1$ & %f\n", V1n);
+printf("$V_2$ & %f\n", V2n);
+printf("$V_3$ & %f\n", V3n);
+printf("$V_4$ & %f\n", V4n);
+printf("$V_5$ & %f\n", V5n);
+printf("$V_6$ & %f\n", V6n);
+printf("$V_7$ & %f\n", V7n);
+printf("$V_8$ & %f\n", V8n);
+diary off
 
