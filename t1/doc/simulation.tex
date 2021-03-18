@@ -4,8 +4,8 @@
 \subsection{Ngspice Analysis}
 
 Table~\ref{tab:op} shows the simulated operating point results for the circuit
-under analysis. Compared to the theoretical analysis results, one notices the
-following differences: describe and explain the differences.
+under analysis. Once again, current flows are the ones referred in ~\ref{sec:analysis}. \par
+ A new voltage source $V_{aux}$ with voltage 0V (so it doesn't affect the circuit) was added to the circuit between components $R_6$ and $R_7$ so that Ngspice could simulate and calculate the current value in that branch. As expected, this current's value is the same as the one that flows through $R_6$ and $R_7$. Adding a new voltage source led to the creation of node 8 between $R_6$ and $V_{aux}$. Also, has predicted, voltage $V_8$ is the same as voltage $V_6$ since the voltage in $V_{aux}$ is 0V.
 
 \begin{table}[h]
   \centering
@@ -19,69 +19,5 @@ following differences: describe and explain the differences.
     Volt.}
   \label{tab:op}
 \end{table}
-
-%\lipsum[1-1]
-
-
-%\subsection{Transient Analysis}
-
-%Figure~\ref{fig:trans} shows the simulated transient analysis results for the
-%circuit under analysis. Compared to the theoretical analysis results, one
-%notices the following differences: describe and explain the differences.
-
-%\begin{figure}[h] \centering
-%\includegraphics[width=0.6\linewidth]{trans.pdf}
-%\caption{Transient output voltage}
-%\label{fig:trans}
-%\end{figure}
-
-%\lipsum[1-1]
-
-
-
-%\subsection{Frequency Analysis}
-
-%\subsubsection{Magnitude Response}
-
-%Figure~\ref{fig:acm} shows the magnitude of the frequency response for the
-%circuit under analysis. Compared to the theoretical analysis results, one
-%notices the following differences: describe and explain the differences.
-
-%\begin{figure}[h] \centering
-%\includegraphics[width=0.6\linewidth]{acm.pdf}
-%\caption{Magnitude response}
-%\label{fig:acm}
-%\end{figure}
-
-%\lipsum[1-1]
-
-%\subsubsection{Phase Response}
-
-%Figure~\ref{fig:acp} shows the magnitude of the frequency response for the
-%circuit under analysis. Compared to the theoretical analysis results, one
-%notices the following differences: describe and explain the differences.
-
-%\begin{figure}[h] \centering
-%\includegraphics[width=0.6\linewidth]{acp.pdf}
-%\caption{Phase response}
-%\label{fig:acp}
-%\end{figure}
-
-%\lipsum[1-1]
-
-%\subsubsection{Input Impedance}
-
-%Figure~\ref{fig:zim} shows the magnitude of the frequency response for the
-%circuit under analysis. Compared to the theoretical analysis results, one
-%notices the following differences: describe and explain the differences.
-
-%\begin{figure}[h] \centering
-%\includegraphics[width=0.6\linewidth]{zim.pdf}
-%\caption{Input impedance}
-%\label{fig:zim}
-%\end{figure}
-
-%\lipsum[1-1]
-
-
+\FloatBarrier
 
