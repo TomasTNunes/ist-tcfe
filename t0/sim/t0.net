@@ -49,7 +49,7 @@ echo "********************************************"
 print Vcc
 print @Q1[ic]
 print @Rf[i]
-
+print v(1)
 echo  "op_TAB"
 print all
 echo  "op_END"

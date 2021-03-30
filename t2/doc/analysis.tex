@@ -1,0 +1,111 @@
+\section{Theoretical Analysis}
+\label{sec:analysis}
+
+In this section, the circuit shown in Figure~\ref{fig:t1} is analysed
+theoretically, in terms of each branch's current and voltage.
+The current flows considered in the analysis are the following:
+$R_1$ from node 1 to 2; $R_2$ from node 2 to 3; $R_3$ from node 2 to 4; $R_4$ from node 4 to 0; $R_5$ from node 4 to 5; $R_6$ from node 0 to 6; $R_7$ from node 6 to 7. Also, the potencial in Node 0 was considered to be 0V (ground).
+
+\subsection{Nodal Analysis}
+
+This method is based on Kirchhoff's Current Law (KCL), and firstly consists in
+deriving equations for the current flow in nodes not connected to voltage sources,
+followed by writing aditional equations in nodes related to voltage sources. The node 
+identification can be seen on Figure~\ref{fig:t1}. Moreover, the equations relative to
+nodes 0, 2, 5 and 0, respectively, are
+
+\begin{equation}
+  (V_0 - V_4)G_4 + (V_0 - V_6)G_6 + (V_1 - V_2)G_1 = 0 
+  \label{eq:kvl}
+\end{equation}
+
+\begin{equation}
+  (V_2 - V_1)G_1 + (V_2 - V_4)G_3 + (V_2 - V_3)G_2 = 0 
+  \label{eq:kvl2}
+\end{equation}
+
+\begin{equation}
+  (V_5 - V_4)G_5 + I_b - I_d = 0 , I_b = K_b(V_2 - V_4) 
+  \label{eq:kvl3}
+\end{equation}
+
+\begin{equation}
+  (V_6 - V_7)G_7 + (V_0 - V_4)G_4 + (V_1 - V_2)G_1 = 0 
+  \label{eq:kvl4}
+\end{equation}
+
+The aditional equations for the method are
+
+\begin{equation}
+  V_0 = 0
+  \label{eq:kvl5}
+\end{equation}
+
+\begin{equation}
+  V_1 = V_a
+  \label{eq:kvl6}
+\end{equation}
+
+\begin{equation}
+  V_4 - V_7 = K_c(V_0 - V_6)G_6
+  \label{eq:kvl7}
+\end{equation}
+
+\begin{equation}
+  I_b = (V_3 - V_2)G_2 , I_b = K_b(V_2 - V_4)
+  \label{eq:kvl8}
+\end{equation}
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value [mA or V]} \\ \hline
+    \input{../mat/Nodal_tab}
+  \end{tabular}
+  \caption{Nodal Analysis' variable values, where $I_j$ is expressed in milliampere and $V_j$ is expressed in Volt.}
+  \label{tab:Nodal}
+\end{table}
+\FloatBarrier
+
+\subsection{Mesh Analysis}
+
+This method is based on Kirchoff's Voltage Law (KVL), and consists on analysing the circuit's meshes
+after creating arbitrary currents with arbitrary flows for each mesh in the circuit. The top left mesh
+was named mesh A with clockwhise current flow $I_A$; the top right mesh was named mesh B with counterclockwhise
+current flow $I_B$; the bottom left mesh was named mesh C with counterclockwhise current flow $I_C$; the bottom right
+mesh was named mesh D with counterclockwhise current flow $I_D$. Furthermore, the equations associated with these meshes
+and currents are
+
+\begin{equation}
+  R_1 I_A + R_3(I_A + I_B) + R_4(I_A + I_C) - V_a = 0
+  \label{eq:kvl}
+\end{equation}
+
+\begin{equation}
+R_6 I_C + R_7 I_C - K_c I_C + R_4(I_A + I_C) = 0
+  \label{eq:kvl2}
+\end{equation}
+
+\begin{equation}
+  I_D = I_d
+  \label{eq:kvl3}
+\end{equation}
+
+\begin{equation}
+  I_B = K_b R_3(I_A + I_B)
+  \label{eq:kvl4}
+\end{equation}
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value [mA or V]} \\ \hline
+    \input{../mat/Mesh_tab}
+  \end{tabular}
+  \caption{Mesh Analysis' variable values, where $I_j$ is expressed in milliampere and $V_j$ is expressed in Volt.}
+  \label{tab:Mesh}
+\end{table}
+\FloatBarrier
+

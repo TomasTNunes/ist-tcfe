@@ -1,0 +1,23 @@
+\section{Simulation Analysis}
+\label{sec:simulation}
+
+\subsection{Ngspice Analysis}
+
+Table~\ref{tab:op} shows the simulated operating point results for the circuit
+under analysis. Once again, current flows are the ones referred in ~\ref{sec:analysis} and node 0 is considered to have 0V potential. \par
+ A new voltage source $V_{aux}$ with voltage 0V (so it doesn't affect the circuit) was added to the circuit between components $R_6$ and $R_7$ so that Ngspice could simulate and calculate the current value in that branch. This current is needed since the voltage source $V_c$ depends on its value and as expected, this current's value is the same as the one that flows through $R_6$ and $R_7$. Adding a new voltage source led to the creation of node 8 between $R_6$ and $V_{aux}$. Also, has predicted, voltage $V_8$ is the same as voltage $V_6$ since the voltage in $V_{aux}$ is 0V.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value [A or V]} \\ \hline
+    \input{../sim/op_tab}
+  \end{tabular}
+  \caption{Operating point. A variable proceeded by [i] is of type {\em current}
+    and expressed in Ampere; other variables are of type {\it voltage} and expressed in
+    Volt.}
+  \label{tab:op}
+\end{table}
+\FloatBarrier
+
