@@ -1,0 +1,49 @@
+*Values
+*Number:95787
+*Units for the values: V, mA, kOhm, mS and uF
+*R1 = 1.02943118797 
+*R2 = 2.01395929215 
+*R3 = 3.04865352258 
+*R4 = 4.00813564187 
+*R5 = 3.14877356154 
+*R6 = 2.0324721756 
+*R7 = 1.02032682556 
+*Vs = 5.05481864136 
+*C = 1.02872173547 
+*Kb = 7.12052712169 
+*Kd = 8.12923323408
+
+* NGSPICE simulation script
+* BJT amp with feedback
+*
+* forces current values to be saved
+.options savecurrents
+
+.INCLUDE data_1_ng.txt
+
+.end
+.control
+op
+
+*makes plots in color
+set hcopypscolor=0
+set color0=white
+set color1=black
+set color2=red
+set color3=blue
+set color4=violet
+set color5=rgb:3/8/0
+set color6=rgb:4/0/0
+
+echo "******************************************"
+echo  "Operating point"
+echo "******************************************"
+
+echo  "op1_TAB"
+print all
+echo  "op1_END"
+
+quit
+.endc
+
+
