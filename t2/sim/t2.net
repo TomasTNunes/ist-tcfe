@@ -1,0 +1,61 @@
+*Values
+*Number:95787
+*Units for the values: V, mA, kOhm and mS
+*R1 = 1.02943118797 
+*R2 = 2.01395929215 
+*R3 = 3.04865352258 
+*R4 = 4.00813564187 
+*R5 = 3.14877356154 
+*R6 = 2.0324721756 
+*R7 = 1.02032682556 
+*Va = 5.05481864136 
+*Id = 1.02872173547 
+*Kb = 7.12052712169 
+*Kc = 8.12923323408 
+
+* NGSPICE simulation script
+* BJT amp with feedback
+*
+
+* forces current values to be saved
+.options savecurrents
+
+*independent voltage and current sources
+Va 1 0 DC 5.05481864136
+Id 7 5 DC 1.02872173547m
+Vaux 8 6 DC 0
+
+*dependent voltage and current sources
+Hc 4 7 Vaux 8.12923323408k 
+Gb 5 3 (2,4) 7.12052712169m 
+
+*resistors
+R1 1 2 1.02943118797k
+R2 2 3 2.01395929215k
+R3 2 4 3.04865352258k
+R4 4 0 4.00813564187k
+R5 4 5 3.14877356154k
+R6 0 8 2.0324721756k
+R7 6 7 1.02032682556k
+
+
+.control
+
+
+op
+
+echo "******************************************"
+echo  "Operating point"
+echo "******************************************"
+
+
+
+echo  "op_TAB"
+print all
+echo  "op_END"
+
+quit
+.endc
+
+.end
+
