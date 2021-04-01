@@ -214,9 +214,42 @@ print (hf, "v5_n.eps", "-depsc");
 
 %%%%%FORCED SOLUTION 4)%%%%%
 
-Vs_p = sym ('1');
+Vs_p = sym (0-j)
 f = 1000
-w = 2*pi*f
+w = sym('2000*pi')
+Zc = sym (0-1/(w*C)*j*10^6)
+syms V1n_p V2n_p V3n_p V4n_p V5n_p V6n_p V7n_p 
+
+Eqd4_2 = (V2n_p-V1n_p)/R1 + (V2n_p-V4n_p)/R3 + (V2n_p-V3n_p)/R2 == 0;
+Eqd4_0_R6 = (V1n_p-V2n_p)/R1 + (-V4n_p)/R4 + (-V6n_p)/R6 == 0;
+Eqd4_0_R7 = (V1n-V2n_p)/R1 + (-V4n_p)/R4 + (V6n_p-V7n_p)/R7 == 0;
+Eqd4_Vs = V1n_p == Vs_p;
+Eqd4_Vd = V4n_p-V7n_p == Kd*(-V6n_p)/R6;
+Eqd4_5 = (V5n_p-V7n_p)/Zc + (V5n_p-V4n_p)/R5 + Kb*(V2n_p-V4n_p) == 0;
+Eqd4_3 = (V3n_p-V2n_p)/R2 == Kb*(V2n_p-V4n_p);
+sn_4 = solve(Eqd4_2,Eqd4_0_R6,Eqd4_0_R7,Eqd4_Vs,Eqd4_Vd,Eqd4_5,Eqd4_3);
+
+V1n_p = sn_4.V1n_p
+V2n_p = sn_4.V2n_p
+V3n_p = sn_4.V3n_p
+V4n_p = sn_4.V4n_p
+V5n_p = sn_4.V5n_p
+V6n_p = sn_4.V6n_p
+V7n_p = sn_4.V7n_p
+V8n_p = V6n_p
+
+M_V5n_p = double(abs(V5n_p))
+A_V5n_p = double(angle(V5n_p))
+
+t=0:1e-6:20e-3;
+v5_f = M_V5n_p*cos(double(w)*t-A_V5n_p);
+
+hf = figure (2);
+plot (t*1000, v5_f, "r");
+xlabel ("t [ms]");
+ylabel ("v5_f [V]");
+legend('v5_f(t)','Location','northeast');
+print (hf, "v5_f.eps", "-depsc");
 
 
 
@@ -229,8 +262,14 @@ w = 2*pi*f
 
 
 
+v5 = v5_n + v5_f;
 
-
+hf = figure (3);
+plot (t*1000, v5, "b");
+xlabel ("t [ms]");
+ylabel ("v5 [V]");
+legend('v5(t)','Location','northeast');
+print (hf, "v5.eps", "-depsc");
 
 
 
