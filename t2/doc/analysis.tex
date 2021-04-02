@@ -1,111 +1,243 @@
 \section{Theoretical Analysis}
 \label{sec:analysis}
 
-In this section, the circuit shown in Figure~\ref{fig:t1} is analysed
+In this section, the circuit shown in Figure \ref{fig:t2} is analysed
 theoretically, in terms of each branch's current and voltage.
 The current flows considered in the analysis are the following:
 $R_1$ from node 1 to 2; $R_2$ from node 2 to 3; $R_3$ from node 2 to 4; $R_4$ from node 4 to 0; $R_5$ from node 4 to 5; $R_6$ from node 0 to 6; $R_7$ from node 6 to 7. Also, the potencial in Node 0 was considered to be 0V (ground).
 
-\subsection{Nodal Analysis}
+\subsection{Nodal Analysis for t<0}
 
+In this first step, we use Nodal Analysis to determine the voltage in each node as well as the current in every branch of the circuit, when t<0. \par 
 This method is based on Kirchhoff's Current Law (KCL), and firstly consists in
 deriving equations for the current flow in nodes not connected to voltage sources,
 followed by writing aditional equations in nodes related to voltage sources. The node 
-identification can be seen on Figure~\ref{fig:t1}. Moreover, the equations relative to
-nodes 0, 2, 5 and 0, respectively, are
+identification can be seen on Figure \ref{fig:t1}. Moreover, the equations relative to
+nodes 0, 0, 2, 3 and 5, respectively, are
 
 \begin{equation}
-  (V_0 - V_4)G_4 + (V_0 - V_6)G_6 + (V_1 - V_2)G_1 = 0 
-  \label{eq:kvl}
+  (V_0 - V_4)/r_4 + (V_0 - V_6)/R_6 + (V_1 - V_2)/R_1 = 0 
+  \label{eq:kvl1}
 \end{equation}
 
 \begin{equation}
-  (V_2 - V_1)G_1 + (V_2 - V_4)G_3 + (V_2 - V_3)G_2 = 0 
+  (V_6 - V_7)/R_7 + (V_0 - V_4)/R_4 + (V_1 - V_2)/R_1 = 0 
   \label{eq:kvl2}
 \end{equation}
 
 \begin{equation}
-  (V_5 - V_4)G_5 + I_b - I_d = 0 , I_b = K_b(V_2 - V_4) 
+  (V_2 - V_1)/R_1 + (V_2 - V_4)/R_3 + (V_2 - V_3)/R_2 = 0
   \label{eq:kvl3}
 \end{equation}
 
 \begin{equation}
-  (V_6 - V_7)G_7 + (V_0 - V_4)G_4 + (V_1 - V_2)G_1 = 0 
+  (V_3 - V_2)/R_2 = K_b(V_2 - V_4)
   \label{eq:kvl4}
+\end{equation}
+
+\begin{equation}
+  (V_4 - V_5)/R_5 = K_b(V_2 - V_4)
+  \label{eq:kvl5}
 \end{equation}
 
 The aditional equations for the method are
 
 \begin{equation}
-  V_0 = 0
-  \label{eq:kvl5}
-\end{equation}
-
-\begin{equation}
-  V_1 = V_a
+  V_4 - V_7 = K_d(V_0 - V_6)/R_6
   \label{eq:kvl6}
 \end{equation}
 
 \begin{equation}
-  V_4 - V_7 = K_c(V_0 - V_6)G_6
+  V_0 = 0
   \label{eq:kvl7}
 \end{equation}
 
 \begin{equation}
-  I_b = (V_3 - V_2)G_2 , I_b = K_b(V_2 - V_4)
+  V_1 = V_s
   \label{eq:kvl8}
 \end{equation}
-
+%esta tabela parece ter a caption correta já
 \begin{table}[h]
   \centering
   \begin{tabular}{|l|r|}
     \hline    
     {\bf Name} & {\bf Value [mA or V]} \\ \hline
-    \input{../mat/Nodal_tab}
+    \input{../mat/Nodal1_tab}
   \end{tabular}
-  \caption{Nodal Analysis' variable values, where $I_j$ is expressed in milliampere and $V_j$ is expressed in Volt.}
+  \caption{Nodal Analysis' variable values for t<0, where $I_j$ is expressed in milliampere and $V_j$ is expressed in Volt.}
   \label{tab:Nodal}
 \end{table}
 \FloatBarrier
 
-\subsection{Mesh Analysis}
+\subsection{Equivalent resistance $R_{eq}$}
 
-This method is based on Kirchoff's Voltage Law (KVL), and consists on analysing the circuit's meshes
-after creating arbitrary currents with arbitrary flows for each mesh in the circuit. The top left mesh
-was named mesh A with clockwhise current flow $I_A$; the top right mesh was named mesh B with counterclockwhise
-current flow $I_B$; the bottom left mesh was named mesh C with counterclockwhise current flow $I_C$; the bottom right
-mesh was named mesh D with counterclockwhise current flow $I_D$. Furthermore, the equations associated with these meshes
-and currents are
+In this step, we use the previously computed values to calculate a voltage defined as $V_x$ = $V_5$ - $V_7$ (voltages in nodes 6 and 8, respectively). Note that this is the voltage drop at the capacitor's terminals, which will be needed for further analysis of the circuit. Firstly, we make $V_s$ = 0. Then, by running nodal analysis again, we can obtain the current $I_x$ flowing through $V_x$. With both these values computed, we can now obtain the value of the equivalent resistance $R_eq$ as seen be the capacitor, which is given by $R_eq$ = $V_x$/$I_x$. Finally, we can also compute the time constant $\tau$ given by $\tau$ = $R_eq$C. 
+We considered the equations \ref{eq:kvl1, eq:kvl2, eq:kvl3, eq:kvl4, eq:kvl6} and the following two:
 
 \begin{equation}
-  R_1 I_A + R_3(I_A + I_B) + R_4(I_A + I_C) - V_a = 0
-  \label{eq:kvl}
+  V_5 - V_7 = V_x
+  \label{eq:kvl9}
 \end{equation}
 
 \begin{equation}
-R_6 I_C + R_7 I_C - K_c I_C + R_4(I_A + I_C) = 0
-  \label{eq:kvl2}
+ V_1 = V_s 
+  \label{eq:kvl10}
 \end{equation}
-
-\begin{equation}
-  I_D = I_d
-  \label{eq:kvl3}
-\end{equation}
-
-\begin{equation}
-  I_B = K_b R_3(I_A + I_B)
-  \label{eq:kvl4}
-\end{equation}
+%esta aqui so muda o valor de Vs em relacao ao ponto 1
 
 \begin{table}[h]
   \centering
   \begin{tabular}{|l|r|}
     \hline    
     {\bf Name} & {\bf Value [mA or V]} \\ \hline
-    \input{../mat/Mesh_tab}
+    \input{../mat/Req_tau_tab}
   \end{tabular}
-  \caption{Mesh Analysis' variable values, where $I_j$ is expressed in milliampere and $V_j$ is expressed in Volt.}
-  \label{tab:Mesh}
+  \caption{Equivalent resistance $R_{eq}$ and time constant $\tau$}
+  \label{tab:Req}
 \end{table}
 \FloatBarrier
+
+\subsection{Natural Solution}
+
+Now, using the previous results we can compute the natural solution $v_{5n}$(t) from 0 to 20ms in time, as requested. We know that the solution is of the general form 
+\begin{equation}
+Ae^{-t/\tau}.
+\label{eq:kvl11}
+\end{equation}
+
+Now, we only need an initial condition to find the constant "A" which is going to be the value of $V_x$, the capacitor's voltage. A plot of the solution in t$\in$[0;20]ms is shown in %fazer ref ao plot
+
+%Falar que o Vc diminui, o V7 é sempre 0, logo o V5 é igual a Vc
+
+\begin{equation}
+  V_5 = V_c = V_xe^{t/\tau} 
+  \label{eq:kvl12}
+\end{equation}
+
+%plot
+
+\begin{figure}[h] \centering
+\includegraphics[width=0.6\linewidth]{v5_n.eps}
+\caption{Natural solution V5}
+\label{fig:v5_n}
+\end{figure}
+\FloatBarrier
+
+\subsection{Forced solution}
+
+In this step, we use a phasor voltage source $V_S$ and replace the capacitor with its impedance $Z_C$. Then we use the nodal method again in order to determine the phasor voltages in every node, and register the data in %fazer ref a tabela
+\par
+The goal is to obtain the forced solution $v_{5f}$(t) in t$\in$[0;20]ms for a frequency f = 1kHz. \par
+The nodal analysis is equivalent to the previous ones in terms of equations, but instead of voltages we use phasors:
+
+%Aqui aplicou-se o método dos nós, mas temos phasors, portanto repetirei todas as eqs mas assinalo as que ficam diferentes caso queiram tirar as que estão a mais
+
+\begin{equation}
+  (\tilde{V}_2 - \tilde{V}_1)/R_1 + (\tilde{V}_2 - \tilde{V}_4)/R_3 + (\tilde{V}_2 - \tilde{V}_3)/R_2 = 0
+  \label{eq:4_13}
+\end{equation}
+
+\begin{equation}
+ (\tilde{V}_0 - \tilde{V}_4)/R_4 + (\tilde{V}_0 - \tilde{V}_6)/R_6 + (\tilde{V}_1 - \tilde{V}_2)/R_1 = 0 
+  \label{eq:4_14}
+\end{equation}
+
+\begin{equation}
+  (\tilde{V}_6 - \tilde{V}_7)/R_7 + (\tilde{V}_0 - \tilde{V}_4)/R_4 + (\tilde{V}_1 - \tilde{V}_2)/R_1 = 0 
+  \label{eq:4_15}
+\end{equation}
+
+\begin{equation}
+  (\tilde{V}_3 - \tilde{V}_2)/R_2 = K_b(\tilde{V}_2 - \tilde{V}_4)
+  \label{eq:4_16}
+\end{equation}
+
+\begin{equation}
+  (\tilde{V}_5 - \tilde{V}_7)/Z_c + (\tilde{V}_5 - \tilde{V}_4)/R_5 + K_b(\tilde{V}_2 - \tilde{V}_4) = 0, Z_c = 1/(jwc)
+  \label{eq:4_17}
+\end{equation}
+
+\begin{equation}
+  \tilde{V}_4 - \tilde{V}_7 = K_d(\tilde{V}_0 - \tilde{V}_6)/R_6
+  \label{eq:kvl18}
+\end{equation}
+
+\begin{equation}
+  \tilde{V}_1 = \tilde{V}_s
+  \label{eq:kvl19}
+\end{equation}
+
+
+\begin{figure}[h] \centering
+\includegraphics[width=0.6\linewidth]{v5_f.eps}
+\caption{Forced Solution V5}
+\label{fig:v5_f}
+\end{figure}
+\FloatBarrier
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value [VIVA]} \\ \hline
+    \input{../mat/phasors_tab}
+  \end{tabular}
+  \caption{Sem legenda por agora}
+  \label{tab:Phasors}
+\end{table}
+\FloatBarrier
+
+
+%tabela
+
+\subsection{Final solution}
+
+Now we are able to describe the final solution $v_5$(t) after converting the forced solution to a real time function. The solution is the sum of the contributions of the natural and forced responses of the circuit:  
+
+\begin{equation}
+  V_5 = V_{5f} + V_{5n}
+  \label{eq:kvl20}
+\end{equation}
+
+\begin{figure}[h] \centering
+\includegraphics[width=0.6\linewidth]{v5_vs.eps}
+\caption{Final Solution V5 and Vs}
+\label{fig:v5_vs}
+\end{figure}
+\FloatBarrier
+
+\subsection{Frequency response}
+
+In this final step we use the functions $v_5$(f) and $v_7$(f) (voltages of nodes 5 and 7, respectively, in terms of frequency, f) using a logarithmic scale for frequency (dB) and expressing the phase in degrees, with f$\in$[0.1;1]kHz. \par
+Defining $v_C$(f) = $v_5$(f) - $v_7$(f), we can then plot different functions $v_S$(f), $v_C$(f) and $v_6$(f) as seen in \ref{fig:freqresp} (amplitude) and in \ref{fig:phase_oct} (phase, in degrees). %referir o plot
+
+\begin{figure}[h] \centering
+\includegraphics[width=0.6\linewidth]{freqresp.eps}
+\caption{Frequency responses}
+\label{fig:freqresp}
+\end{figure}
+\FloatBarrier
+
+\begin{figure}[h] \centering
+\includegraphics[width=0.6\linewidth]{phase_oct.eps}
+\caption{Phase in degrees}
+\label{fig:phase_oct}
+\end{figure}
+\FloatBarrier
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

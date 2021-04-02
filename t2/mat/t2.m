@@ -69,19 +69,19 @@ IR5n = (V4n-V5n)/double(R5);
 IR6n = (-V6n)/double(R6);
 IR7n = (V6n-V7n)/double(R7);
 Ibn = double(Kb)*(V2n-V4n);
-Icn = 0
+Icn = 0;
 
 %%%%%Nodal method 1) TABLE FILE%%%%%
 
 diary "Nodal1_tab.tex"
 diary on
-printf("$I_b$ & %e\n", Ibn);
 printf("$I_c$ & %d\n", Icn);
+printf("$I_b$ & %.5e\n", Ibn);
 printf("$I_R$$_1$ & %e\n",IR1n);
 printf("$I_R$$_2$ & %e\n",IR2n);
-printf("$I_R$$_3$ & %e\n",IR3n);
+printf("$I_R$$_3$ & %.5e\n",IR3n);
 printf("$I_R$$_4$ & %e\n",IR4n);
-printf("$I_R$$_5$ & %e\n",IR5n);
+printf("$I_R$$_5$ & %.5e\n",IR5n);
 printf("$I_R$$_6$ & %e\n",IR6n);
 printf("$I_R$$_7$ & %e\n",IR7n);
 printf("$V_1$ & %f\n",V1n);
@@ -89,9 +89,9 @@ printf("$V_2$ & %f\n",V2n);
 printf("$V_3$ & %f\n",V3n);
 printf("$V_4$ & %f\n",V4n);
 printf("$V_5$ & %f\n",V5n);
-printf("$V_6$ & %f\n",V6n);
-printf("$V_7$ & %f\n",V7n);
-printf("$V_8$ & %f\n",V8n);
+printf("$V_6$ & %.5f\n",V6n);
+printf("$V_7$ & %.5f\n",V7n);
+printf("$V_8$ & %.5f\n",V8n);
 diary off
 
 %%%%%Nodal method 2)%%%%%
@@ -153,7 +153,7 @@ printf("$I_R$$_1$ & %f\n",IR1n);
 printf("$I_R$$_2$ & %f\n",IR2n);
 printf("$I_R$$_3$ & %f\n",IR3n);
 printf("$I_R$$_4$ & %f\n",IR4n);
-printf("$I_R$$_5$ & %e\n",IR5n);
+printf("$I_R$$_5$ & %.5e\n",IR5n);
 printf("$I_R$$_6$ & %f\n",IR6n);
 printf("$I_R$$_7$ & %f\n",IR7n);
 printf("$V_1$ & %f\n",V1n);
@@ -165,9 +165,9 @@ printf("$V_6$ & %f\n",V6n);
 printf("$V_7$ & %f\n",V7n);
 printf("$V_8$ & %f\n",V8n);
 printf("$V_X$ & %f\n",double(Vx));
-printf("$I_X$ & %e\n",Ix);
-printf("$R_e$$_q$ & %f\n",Req);
-printf("$tau$ & %e\n",tau);
+printf("$I_X$ & %.5e\n",Ix);
+printf("$R_e$$_q$ & %.6e\n",-Req);
+printf("$tau$ & %e\n",-tau);
 diary off
 
 %%%%%NATURAL SOLUTION 3)%%%%%

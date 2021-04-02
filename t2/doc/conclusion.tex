@@ -1,3 +1,60 @@
+\section{comparison}
+\subsection{t<0}
+
+\begin{table}[h]
+\begin{center}
+  \begin{tabular}{|c|c|}
+    \hline    
+    {\bf Name} & {\bf Value [mA or V]} \\ \hline
+    \input{../mat/Nodal1_tab}
+    \hline
+  \end{tabular}
+  \begin{tabular}{|c||c|}
+    \hline    
+    {\bf Name} & {\bf Value [A or V]} \\ \hline
+    \input{../sim/op1_tab}
+    \hline
+  \end{tabular}
+  \caption{Comparison 1}
+  \label{tab:comparison 1}
+\end{center}
+\end{table}
+\FloatBarrier
+
+\subsection{Equivalent resistance}
+%Para esta acho que nao vale a pena estar a imprimir as tabelas. Basta referir os valores do Req.
+%\begin{table}[h]
+%\begin{center}
+ % \begin{tabular}{|c|c|}
+  %  \hline    
+   % {\bf Name} & {\bf Value [mA or V]} \\ \hline
+    %\input{../mat/Req_tau_tab}
+   % \hline
+  %\end{tabular}
+  %\begin{tabular}{|c||c|}
+   % \hline    
+   % {\bf Name} & {\bf Value [A or V]} \\ \hline
+   % \input{../sim/op2_tab}
+   % \hline
+  %\end{tabular}
+  %\caption{Comparison 2}
+ % \label{tab:comparison 2}
+%\end{center}
+%\end{table}
+%\FloatBarrier
+
+\subsection{Natural solutin $V_5$}
+
+
+\begin{figure}[h] \centering
+\includegraphics[scale=0.4]{v5_n.eps}
+\includegraphics[scale=0.3]{transv5n.pdf}
+\caption{Natural solution V5}
+\label{fig:comparison5}
+\end{figure}
+\FloatBarrier
+
+
 \section{Conclusion}
 \label{sec:conclusion}
 Comparing the results given by Nodal and Mesh analysis, it can be observed that both methods achieved the same values. Also, the results given by the Ngspice simulation are the same as those of the methods stated above.  

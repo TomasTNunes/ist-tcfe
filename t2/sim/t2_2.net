@@ -42,7 +42,7 @@ echo "******************************************"
 echo  "op2_TAB"
 print all
 print v(5)-v(7)
-print (v(5)-v(7))/vx#branch
+print (v(7)-v(5))/vx#branch
 echo  "op2_END"
 
 quit
