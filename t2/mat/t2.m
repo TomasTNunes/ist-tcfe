@@ -27,17 +27,17 @@ fclose(data_ngf1);
 
 %%%%%%%%%%%%%%%%%%%SYMBOLIC COMPUTATIONS%%%%%%%%%%%%%%%%%%%
 
-R1 = sym (sprintf('%.11f',DATA(1)));
-R2 = sym (sprintf('%.11f',DATA(2)));
-R3 = sym (sprintf('%.11f',DATA(3)));
-R4 = sym (sprintf('%.11f',DATA(4)));
-R5 = sym (sprintf('%.11f',DATA(5)));
-R6 = sym (sprintf('%.11f',DATA(6)));
-R7 = sym (sprintf('%.11f',DATA(7)));
+R1 = sym (sprintf('%.11f',DATA(1)*1000));
+R2 = sym (sprintf('%.11f',DATA(2)*1000));
+R3 = sym (sprintf('%.11f',DATA(3)*1000));
+R4 = sym (sprintf('%.11f',DATA(4)*1000));
+R5 = sym (sprintf('%.11f',DATA(5)*1000));
+R6 = sym (sprintf('%.11f',DATA(6)*1000));
+R7 = sym (sprintf('%.11f',DATA(7)*1000));
 Vs = sym (sprintf('%.11f',DATA(8)));
-C = sym (sprintf('%.11f',DATA(9)));
-Kb = sym (sprintf('%.11f',DATA(10)));
-Kd = sym (sprintf('%.11f',DATA(11)));
+C = sym (sprintf('%.11f',DATA(9)*10^-6));
+Kb = sym (sprintf('%.11f',DATA(10)/1000));
+Kd = sym (sprintf('%.11f',DATA(11)*1000));
 
 %%%%%Nodal method 1)%%%%%
 
@@ -75,15 +75,15 @@ Icn = 0
 
 diary "Nodal1_tab.tex"
 diary on
-printf("$I_b$ & %e\n", Ibn/1000);
+printf("$I_b$ & %e\n", Ibn);
 printf("$I_c$ & %d\n", Icn);
-printf("$I_R$$_1$ & %e\n",IR1n/1000);
-printf("$I_R$$_2$ & %e\n",IR2n/1000);
-printf("$I_R$$_3$ & %e\n",IR3n/1000);
-printf("$I_R$$_4$ & %e\n",IR4n/1000);
-printf("$I_R$$_5$ & %e\n",IR5n/1000);
-printf("$I_R$$_6$ & %e\n",IR6n/1000);
-printf("$I_R$$_7$ & %e\n",IR7n/1000);
+printf("$I_R$$_1$ & %e\n",IR1n);
+printf("$I_R$$_2$ & %e\n",IR2n);
+printf("$I_R$$_3$ & %e\n",IR3n);
+printf("$I_R$$_4$ & %e\n",IR4n);
+printf("$I_R$$_5$ & %e\n",IR5n);
+printf("$I_R$$_6$ & %e\n",IR6n);
+printf("$I_R$$_7$ & %e\n",IR7n);
 printf("$V_1$ & %f\n",V1n);
 printf("$V_2$ & %f\n",V2n);
 printf("$V_3$ & %f\n",V3n);
@@ -142,20 +142,20 @@ Ibn = double(Kb)*(V2n-V4n);
 
 Ix = IR5n - Ibn;
 Req = double(Vx)/Ix;
-tau = double(C) * 10^-6 * Req*1000;
+tau = double(C) * Req;
 
 %%%%%Nodal method 2) TABLE FILE%%%%%
 
 diary "Req_tau_tab.tex"
 diary on
-printf("$I_b$ & %f\n", Ibn/1000);
-printf("$I_R$$_1$ & %f\n",IR1n/1000);
-printf("$I_R$$_2$ & %f\n",IR2n/1000);
-printf("$I_R$$_3$ & %f\n",IR3n/1000);
-printf("$I_R$$_4$ & %f\n",IR4n/1000);
-printf("$I_R$$_5$ & %e\n",IR5n/1000);
-printf("$I_R$$_6$ & %f\n",IR6n/1000);
-printf("$I_R$$_7$ & %f\n",IR7n/1000);
+printf("$I_b$ & %f\n", Ibn);
+printf("$I_R$$_1$ & %f\n",IR1n);
+printf("$I_R$$_2$ & %f\n",IR2n);
+printf("$I_R$$_3$ & %f\n",IR3n);
+printf("$I_R$$_4$ & %f\n",IR4n);
+printf("$I_R$$_5$ & %e\n",IR5n);
+printf("$I_R$$_6$ & %f\n",IR6n);
+printf("$I_R$$_7$ & %f\n",IR7n);
 printf("$V_1$ & %f\n",V1n);
 printf("$V_2$ & %f\n",V2n);
 printf("$V_3$ & %f\n",V3n);
@@ -165,8 +165,8 @@ printf("$V_6$ & %f\n",V6n);
 printf("$V_7$ & %f\n",V7n);
 printf("$V_8$ & %f\n",V8n);
 printf("$V_X$ & %f\n",double(Vx));
-printf("$I_X$ & %e\n",Ix/1000);
-printf("$R_e$$_q$ & %f\n",Req*1000);
+printf("$I_X$ & %e\n",Ix);
+printf("$R_e$$_q$ & %f\n",Req);
 printf("$tau$ & %e\n",tau);
 diary off
 
@@ -217,7 +217,7 @@ print (hf, "v5_n.eps", "-depsc");
 Vs_p = sym (0-j);
 f = 1000;
 w = sym('2000*pi');
-Zc = sym (0-1/(w*C)*j*10^6);
+Zc = sym (0-1/(w*C)*j);
 syms V1n_p V2n_p V3n_p V4n_p V5n_p V6n_p V7n_p 
 
 Eqd4_2 = (V2n_p-V1n_p)/R1 + (V2n_p-V4n_p)/R3 + (V2n_p-V3n_p)/R2 == 0;
@@ -248,7 +248,7 @@ M_V5n_p = double(abs(sn_4.V5n_p));
 A_V5n_p = double(angle(sn_4.V5n_p));
 
 t=0:1e-6:20e-3;
-v5_f = M_V5n_p*cos(double(w)*t-A_V5n_p);
+v5_f = M_V5n_p*cos(double(w)*t+A_V5n_p);
 
 hf = figure (2);
 plot (t*1000, v5_f, "r");
@@ -301,7 +301,7 @@ print (hf, "v5_vs.eps", "-depsc");
 %%%%%FREQUENCY ANALYSIS 6)%%%%%
 
 syms f;
-Zc = sym (0-1/(2*sym(pi)*f*C)*j*10^6);
+Zc = sym (0-1/(2*sym(pi)*f*C)*j);
 syms V1n_p V2n_p V3n_p V4n_p V5n_p V6n_p V7n_p 
 
 Eqd5_2 = (V2n_p-V1n_p)/R1 + (V2n_p-V4n_p)/R3 + (V2n_p-V3n_p)/R2 == 0;
@@ -330,17 +330,18 @@ vc_freq = fh(freq);
 %%%%%FREQUENCY ANALYSIS 6) PLOT%%%%%
 
 hf = figure (4);
-semilogx(freq,20*log10(abs(v5_freq)), "r",freq,20*log10(abs(vs_freq)),"b",freq,20*log10(abs(vc_freq)), "g");
+semilogx(freq,20*log10(abs(v5_freq)), "r",freq,20*log10(abs(vs_freq)),"b",freq,20*log10(abs(vc_freq)), "g-");
 xlabel ("f [Hz]");
 ylabel ("|v| dB");
 legend('v5(f)','vs(f)','vc(f)','Location','southwest');
 print (hf, "freqresp.eps", "-depsc");
 
 hf = figure (5);
-semilogx(freq,180/pi*angle(v5_freq), "r",freq,180/pi*angle(vs_freq),"b",freq,180/pi*angle(vc_freq), "g");
+hold on
+semilogx(freq,180/pi*angle(v5_freq), "r",freq,180/pi*angle(vs_freq),"b",freq,180/pi*angle(vc_freq), "g-");
 xlabel ("f [Hz]");
 ylabel ("phase [degrees]");
-legend('phase.v5(f)','phase.vs(f)','phase.vc(f)','Location','northwest');
+legend('phase.v5(f)','phase.vs(f)','phase.vc(f)','location','northwest');
 print (hf, "phase_oct.eps", "-depsc");
 
 

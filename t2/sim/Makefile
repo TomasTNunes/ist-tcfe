@@ -27,10 +27,6 @@ ngspice_3.log: ../sim/t2_3.net
 
 ngspice_4.log: ../sim/t2_4.net
 	ngspice -b $< -o $@
-	
-%.pdf:	
-	mv *.pdf ../doc
-
 
 clean:
 	@rm -f *.log *.tex *.pdf *.ps *~
