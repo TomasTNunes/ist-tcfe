@@ -23,7 +23,7 @@
 .ic v(5)=8.573530 v(7)=0
 .end
 .control
-op
+
 
 *makes plots in color
 set hcopypscolor=0
@@ -35,7 +35,7 @@ set color4=violet
 set color5=rgb:3/8/0
 set color6=rgb:4/0/0
 
-
+op
 echo "********************************************"
 echo  "Transient analysis"
 echo "********************************************"
@@ -43,6 +43,21 @@ tran 1e-6 20e-3
 
 hardcopy transv5vs.ps v(5) v(1)
 echo transv5vs_FIG
+
+"********************************************"
+echo  "Frequency analysis"
+echo "********************************************"
+
+ac dec 10 0.1 1MEG
+
+hardcopy db_v5_v1.ps db(v(5)) db(v(1))
+echo db_v5_v1_FIG
+let phase_v(5) = 180/PI*ph(v(5))
+let phase_v(1) = 180/PI*ph(v(1))
+hardcopy phase.ps phase_v(5) phase_v(1)
+echo phase_FIG
+
+
 
 quit
 .endc

@@ -27,11 +27,13 @@ ngspice_3.log: ../sim/t2_3.net
 
 ngspice_4.log: ../sim/t2_4.net
 	ngspice -b $< -o $@
+	
+%.pdf:	
+	mv *.pdf ../doc
+
 
 clean:
-	@rm -f ngspice_1.log *.tex *.pdf *.ps *~
-	@rm -f ngspice_2.log
-	@rm -f ngspice_3.log
+	@rm -f *.log *.tex *.pdf *.ps *~
 	@rm -rf *_ng.txt
 
 .PHONY: all clean

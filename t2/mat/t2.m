@@ -270,7 +270,7 @@ fprintf(data_ngf4,'R5 4 5 %.11fk\n', DATA(5));
 fprintf(data_ngf4,'R6 0 8 %.11fk\n', DATA(6));
 fprintf(data_ngf4,'R7 6 7 %.11fk\n', DATA(7));
 fprintf(data_ngf4,'C 5 7 %.11fu\n', DATA(9));
-fprintf(data_ngf4,'Vs 1 0 sin(0 1 1k)\n');
+fprintf(data_ngf4,'Vs 1 0 ac 1.0 -90 sin(0 1 1k)\n');
 fprintf(data_ngf4,'Vaux 8 6 DC 0\n');
 fprintf(data_ngf4,'Hd 4 7 vaux %.11fk\n', DATA(11));
 fprintf(data_ngf4,'Gb 5 3 (2,4) %.11fm\n', DATA(10));
@@ -301,7 +301,7 @@ print (hf, "v5_vs.eps", "-depsc");
 %%%%%FREQUENCY ANALYSIS 6)%%%%%
 
 syms f;
-Zc = sym (0-1/(2*pi*f*C)*j*10^6);
+Zc = sym (0-1/(2*sym(pi)*f*C)*j*10^6);
 syms V1n_p V2n_p V3n_p V4n_p V5n_p V6n_p V7n_p 
 
 Eqd5_2 = (V2n_p-V1n_p)/R1 + (V2n_p-V4n_p)/R3 + (V2n_p-V3n_p)/R2 == 0;
@@ -313,10 +313,35 @@ Eqd5_5 = (V5n_p-V7n_p)/Zc + (V5n_p-V4n_p)/R5 + Kb*(V2n_p-V4n_p) == 0;
 Eqd5_3 = (V3n_p-V2n_p)/R2 == Kb*(V2n_p-V4n_p);
 sn_5 = solve(Eqd5_2,Eqd5_0_R6,Eqd5_0_R7,Eqd5_Vs,Eqd5_Vd,Eqd5_5,Eqd5_3);
 
+%%%%%FREQUENCY ANALYSIS 6) NUMERIC%%%%%
 
+freq = logspace(-1,6,200);
 
+fh = function_handle(sn_5.V5n_p);
+v5_freq = fh(freq); 
 
+fh = function_handle(Vs_p);
+vs_freq = fh(freq); 
 
+Vc_p = sn_5.V5n_p - sn_5.V7n_p ;
+fh = function_handle(Vc_p);
+vc_freq = fh(freq);
+
+%%%%%FREQUENCY ANALYSIS 6) PLOT%%%%%
+
+hf = figure (4);
+semilogx(freq,20*log10(abs(v5_freq)), "r",freq,20*log10(abs(vs_freq)),"b",freq,20*log10(abs(vc_freq)), "g");
+xlabel ("f [Hz]");
+ylabel ("|v| dB");
+legend('v5(f)','vs(f)','vc(f)','Location','southwest');
+print (hf, "freqresp.eps", "-depsc");
+
+hf = figure (5);
+semilogx(freq,180/pi*angle(v5_freq), "r",freq,180/pi*angle(vs_freq),"b",freq,180/pi*angle(vc_freq), "g");
+xlabel ("f [Hz]");
+ylabel ("phase [degrees]");
+legend('phase.v5(f)','phase.vs(f)','phase.vc(f)','Location','northwest');
+print (hf, "phase_oct.eps", "-depsc");
 
 
 
