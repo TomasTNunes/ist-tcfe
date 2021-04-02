@@ -52,12 +52,13 @@ ac dec 10 0.1 1MEG
 
 let vc = v(5)-v(7)
 let vs = v(1)
-hardcopy db_v5_v1.ps db(v(5)) db(vs)
+hardcopy db_v5_v1.ps db(v(5)) db(vs) db(vc)
 echo db_v5_v1_FIG
 
 let phase_v(5) = 180/PI*ph(v(5))
 let phase_v(1) = 180/PI*ph(v(1))
-hardcopy phase.ps phase_v(5) phase_v(1)
+let phase_vc = 180/PI*ph(vc)
+hardcopy phase.ps phase_v(5) phase_v(1) phase_vc
 echo phase_FIG
 
 
