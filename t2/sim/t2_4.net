@@ -19,7 +19,7 @@
 * forces current values to be saved
 .options savecurrents
 
-.INCLUDE data_3_ng.txt
+.INCLUDE data_4_ng.txt
 .ic v(5)=8.573530 v(7)=0
 .end
 .control
@@ -41,8 +41,8 @@ echo  "Transient analysis"
 echo "********************************************"
 tran 1e-6 20e-3
 
-hardcopy transv5n.ps v(5)
-echo transv5n_FIG
+hardcopy transv5vs.ps v(5) v(1)
+echo transv5vs_FIG
 
 quit
 .endc

@@ -214,32 +214,38 @@ print (hf, "v5_n.eps", "-depsc");
 
 %%%%%FORCED SOLUTION 4)%%%%%
 
-Vs_p = sym (0-j)
-f = 1000
-w = sym('2000*pi')
-Zc = sym (0-1/(w*C)*j*10^6)
+Vs_p = sym (0-j);
+f = 1000;
+w = sym('2000*pi');
+Zc = sym (0-1/(w*C)*j*10^6);
 syms V1n_p V2n_p V3n_p V4n_p V5n_p V6n_p V7n_p 
 
 Eqd4_2 = (V2n_p-V1n_p)/R1 + (V2n_p-V4n_p)/R3 + (V2n_p-V3n_p)/R2 == 0;
 Eqd4_0_R6 = (V1n_p-V2n_p)/R1 + (-V4n_p)/R4 + (-V6n_p)/R6 == 0;
-Eqd4_0_R7 = (V1n-V2n_p)/R1 + (-V4n_p)/R4 + (V6n_p-V7n_p)/R7 == 0;
+Eqd4_0_R7 = (V1n_p-V2n_p)/R1 + (-V4n_p)/R4 + (V6n_p-V7n_p)/R7 == 0;
 Eqd4_Vs = V1n_p == Vs_p;
 Eqd4_Vd = V4n_p-V7n_p == Kd*(-V6n_p)/R6;
 Eqd4_5 = (V5n_p-V7n_p)/Zc + (V5n_p-V4n_p)/R5 + Kb*(V2n_p-V4n_p) == 0;
 Eqd4_3 = (V3n_p-V2n_p)/R2 == Kb*(V2n_p-V4n_p);
 sn_4 = solve(Eqd4_2,Eqd4_0_R6,Eqd4_0_R7,Eqd4_Vs,Eqd4_Vd,Eqd4_5,Eqd4_3);
 
-V1n_p = sn_4.V1n_p
-V2n_p = sn_4.V2n_p
-V3n_p = sn_4.V3n_p
-V4n_p = sn_4.V4n_p
-V5n_p = sn_4.V5n_p
-V6n_p = sn_4.V6n_p
-V7n_p = sn_4.V7n_p
-V8n_p = V6n_p
+%%%%%FORCED SOLUTION 4) DATA FILE AND PLOT%%%%%
 
-M_V5n_p = double(abs(V5n_p))
-A_V5n_p = double(angle(V5n_p))
+diary "phasors_tab.tex"
+diary on 
+printf("$V_1$ & %f\n",double(abs(sn_4.V1n_p)));
+printf("$V_2$ & %f\n",double(abs(sn_4.V2n_p)));
+printf("$V_3$ & %f\n",double(abs(sn_4.V3n_p)));
+printf("$V_4$ & %f\n",double(abs(sn_4.V4n_p)));
+printf("$V_5$ & %f\n",double(abs(sn_4.V5n_p)));
+printf("$V_6$ & %f\n",double(abs(sn_4.V6n_p)));
+printf("$V_7$ & %f\n",double(abs(sn_4.V7n_p)));
+printf("$V_8$ & %f\n",double(abs(sn_4.V6n_p)));
+diary off
+
+
+M_V5n_p = double(abs(sn_4.V5n_p));
+A_V5n_p = double(angle(sn_4.V5n_p));
 
 t=0:1e-6:20e-3;
 v5_f = M_V5n_p*cos(double(w)*t-A_V5n_p);
@@ -251,25 +257,65 @@ ylabel ("v5_f [V]");
 legend('v5_f(t)','Location','northeast');
 print (hf, "v5_f.eps", "-depsc");
 
+%%%%%SOLUTION 5)%%%%%
 
+%%%%%SOLUTION 5) WRITE FILE DATA_4_NG.TXT%%%%%
 
+data_ngf4 = fopen('data_4_ng.txt','w');
+fprintf(data_ngf4,'R1 1 2 %.11fk\n', DATA(1));
+fprintf(data_ngf4,'R2 2 3 %.11fk\n', DATA(2));
+fprintf(data_ngf4,'R3 2 4 %.11fk\n', DATA(3));
+fprintf(data_ngf4,'R4 4 0 %.11fk\n', DATA(4));
+fprintf(data_ngf4,'R5 4 5 %.11fk\n', DATA(5));
+fprintf(data_ngf4,'R6 0 8 %.11fk\n', DATA(6));
+fprintf(data_ngf4,'R7 6 7 %.11fk\n', DATA(7));
+fprintf(data_ngf4,'C 5 7 %.11fu\n', DATA(9));
+fprintf(data_ngf4,'Vs 1 0 sin(0 1 1k)\n');
+fprintf(data_ngf4,'Vaux 8 6 DC 0\n');
+fprintf(data_ngf4,'Hd 4 7 vaux %.11fk\n', DATA(11));
+fprintf(data_ngf4,'Gb 5 3 (2,4) %.11fm\n', DATA(10));
+fclose(data_ngf4);
 
+%%%%%SOLUTION 5) PLOT%%%%%
 
-
-
-
-
-
-
-
+t=0:1e-6:20e-3;
 v5 = v5_n + v5_f;
+vs = sin(double(w)*t);
+
+ti=-5e-3:1e-6:0;
+tt = cat(2,ti,t);
+
+v5i = double(sn_1.V5n)*ones(1,size(ti,2));
+v5 = cat(2,v5i,v5);
+
+vsi = DATA(8)*ones(1,size(ti,2));
+vs = cat(2,vsi,vs);
 
 hf = figure (3);
-plot (t*1000, v5, "b");
+plot (tt*1000, v5, "r",tt*1000, vs, "b");
 xlabel ("t [ms]");
-ylabel ("v5 [V]");
-legend('v5(t)','Location','northeast');
-print (hf, "v5.eps", "-depsc");
+ylabel ("v [V]");
+legend('v5(t)','vs(t)','Location','northeast');
+print (hf, "v5_vs.eps", "-depsc");
+
+%%%%%FREQUENCY ANALYSIS 6)%%%%%
+
+syms f;
+Zc = sym (0-1/(2*pi*f*C)*j*10^6);
+syms V1n_p V2n_p V3n_p V4n_p V5n_p V6n_p V7n_p 
+
+Eqd5_2 = (V2n_p-V1n_p)/R1 + (V2n_p-V4n_p)/R3 + (V2n_p-V3n_p)/R2 == 0;
+Eqd5_0_R6 = (V1n_p-V2n_p)/R1 + (-V4n_p)/R4 + (-V6n_p)/R6 == 0;
+Eqd5_0_R7 = (V1n_p-V2n_p)/R1 + (-V4n_p)/R4 + (V6n_p-V7n_p)/R7 == 0;
+Eqd5_Vs = V1n_p == Vs_p;
+Eqd5_Vd = V4n_p-V7n_p == Kd*(-V6n_p)/R6;
+Eqd5_5 = (V5n_p-V7n_p)/Zc + (V5n_p-V4n_p)/R5 + Kb*(V2n_p-V4n_p) == 0;
+Eqd5_3 = (V3n_p-V2n_p)/R2 == Kb*(V2n_p-V4n_p);
+sn_5 = solve(Eqd5_2,Eqd5_0_R6,Eqd5_0_R7,Eqd5_Vs,Eqd5_Vd,Eqd5_5,Eqd5_3);
+
+
+
+
 
 
 
