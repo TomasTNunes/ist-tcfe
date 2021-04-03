@@ -4,7 +4,7 @@
 \subsection{Operating point for t$<$0}
 
 Table \ref{tab:op_1} shows the simulated operating point results for the circuit analysis when t$<$0. Once again, current flows are the ones referred in section \ref{sec:analysis} and node 0 is considered to have 0V potential. \par
- A new voltage source $V_{aux}$ with voltage 0V (so it doesn't affect the circuit) was added to the circuit between components $R_6$ and $R_7$ so that Ngspice could simulate and calculate the current value in that branch. This current is needed since the voltage source $v_S$(t) depends on its value and as expected, this current's value is the same as the one that flows through $R_6$ and $R_7$. Adding a new voltage source led to the creation of node 8 between $R_6$ and $V_{aux}$. Also, as predicted, voltage $V_8$ is the same as voltage $V_6$ since the voltage in $V_{aux}$ is 0V.
+ A new voltage source $V_{aux}$ with voltage 0V (so it doesn't affect the circuit) was added to the circuit between components $R_6$ and $R_7$ so that Ngspice could simulate and calculate the current value in that branch. This current is needed since the voltage source $v_d$ depends on its value and as expected, this current's value is the same as the one that flows through $R_6$ and $R_7$. Adding a new voltage source led to the creation of node 8 between $R_6$ and $V_{aux}$. Also, as predicted, voltage $V_8$ is the same as voltage $V_6$ since the voltage in $V_{aux}$ is 0V.
 
 \begin{table}[h]
   \centering
@@ -22,7 +22,7 @@ Table \ref{tab:op_1} shows the simulated operating point results for the circuit
 
 \subsection{Operating point for $v_S$(0) = 0}
 
-Table \ref{tab:op_2} shows the simulated operating point values for the circuit when t=0 and $v_S$(0) = 0V. The reason why this step is needed is the same as the one referred in \ref{sec:2.2}. Also, in order to perform the transient analysis, Ngspice needs to know $V_5$ and $V_7$ so that it can compute the capacitor's charge. 
+Table \ref{tab:op_2} shows the simulated operating point values for the circuit when t=0 and $v_S$(0) = 0V. The reason why this step is needed is the same as the one referred in \ref{sec:2.2}. Also, in order to perform the transient analysis, we replaced the capacitor with an independent voltage source from node 5 to 7 with value $V_x$. 
 
 \begin{table}[h]
   \centering
@@ -40,7 +40,7 @@ Table \ref{tab:op_2} shows the simulated operating point values for the circuit 
 
 \subsection{Natural response}
 
-In this step, the natural response of the circuit with a given boundary condition is simulated using Ngspice's transient analysis function. The plot for t$\in$[0;20]ms can be seen in \ref{fig:v5_ng}. 
+In this step, the natural response of the circuit with a given boundary condition is simulated using Ngspice's transient analysis function. The boundary condition is $V_5$ and $V_7$ obtained in the previous subsection when t=0. After comparing the results we concluded that the values obtained in Ngspice matched the ones from Octave, so we used the Octave values directly in Ngspice. The plot for t$\in$[0;20]ms can be seen in \ref{fig:v5_ng}. 
 
 \begin{figure}[h] \centering
 \includegraphics[width=0.6\linewidth]{transv5n.pdf}

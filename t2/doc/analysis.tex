@@ -7,8 +7,9 @@ The current flows considered in the analysis are the following:
 $R_1$ from node 1 to 2; $R_2$ from node 2 to 3; $R_3$ from node 2 to 4; $R_4$ from node 4 to 0; $R_5$ from node 4 to 5; $R_6$ from node 0 to 6; $R_7$ from node 6 to 7. Also, the potencial in Node 0 was considered to be 0V (ground). Node 8 is an auxiliary node which is going to be needed in the simulation.
 
 \subsection{Nodal Analysis for t$<$0}
+\label{sec:na}
 
-In this first step, we use Nodal Analysis to determine the voltage in each node as well as the current in every branch of the circuit, when t$<$0. \par 
+In this first step, we use Nodal Analysis to determine the voltage in each node as well as the current in every branch of the circuit, when t$<$0. We considered the voltage source $v_s$ to be connected for a long time so the voltages are already constant. Since $i_C$ = C$\frac{dv_c}{dt}$ we can assume $i_C$ = 0. \par 
 This method is based on Kirchhoff's Current Law (KCL), and firstly consists in
 deriving equations for the current flow in nodes not connected to voltage sources,
 followed by writing aditional equations in nodes related to voltage sources. The node 
@@ -73,9 +74,10 @@ The aditional equations for the method are
 \subsection{Equivalent resistance $R_{eq}$}
 \label{sec:2.2}
 
-In this step, we use the previously computed values to calculate a voltage defined as $V_x$ = $V_5$ - $V_7$ (voltages in nodes 5 and 7, respectively - which correspond to nodes 6 and 8 from the laboratory paper). Note that this is the voltage drop at the capacitor's terminals, which will be needed for further analysis of the circuit. Firstly, we make $V_S$ = 0. Then, by running nodal analysis again, we can obtain the current $I_x$ flowing through $V_x$. With both these values computed, we can now obtain the value of the equivalent resistance $R_{eq}$ as seen by the capacitor, which is given by $R_{eq}$ = $V_x$/$I_x$. Finally, we can also compute the time constant $\tau$ given by $\tau$ = $R_{eq}$C. Also, this corresponds to the initial calculations for computing the natural solution. \par
-Defining $V_x$ = $V_5$ - $V_7$ makes sense because the voltage drop in the capacitor is a continuous function, so $V_x$(t$<$0) = $V_x$(t=0).
-We considered the equations \ref{eq:kvl1}, \ref{eq:kvl2}, \ref{eq:kvl3}, \ref{eq:kvl4}, \ref{eq:kvl6}, \ref{eq:kvl7} and the following two:
+In this step, we use the previously computed values to calculate a voltage defined as $V_x$ = $V_5$ - $V_7$ (voltages in nodes 5 and 7, respectively - which correspond to nodes 6 and 8 from the laboratory paper). Note that this is the voltage drop at the capacitor's terminals, which will be needed for further analysis of the circuit. Firstly, we make $V_S$ = 0. Then, by running nodal analysis again, we can obtain the current $I_x$ flowing through $V_x$. With both these values computed, we can now obtain the value of the equivalent resistance $R_{eq}$ as seen by the capacitor, which is given by $R_{eq}$ = $V_x$/$I_x$. Finally, we can also compute the time constant $\tau$ given by $\tau$ = $R_{eq}$C. We used this procedure because to obtain the equivalent resistor we need to turn off the independent sources and due to the presence of dependent sources we replaced the capacitor with a independent voltage source with value $V_x$ to ensure the continuity of the capacitor's voltage function. \par   
+Also, this corresponds to the initial calculations for computing the natural solution. \par
+Defining $V_x$ = $V_5$ - $V_7$ makes sense because the voltage drop in the capacitor is a continuous function, so $V_x$(t=$0^-$) = $V_x$(t=0).
+We considered the equations \ref{eq:kvl1}, \ref{eq:kvl2}, \ref{eq:kvl3}, \ref{eq:kvl4}, \ref{eq:kvl6}, \ref{eq:kvl7}, \ref{eq:kvl8} and the following two:
 
 \begin{equation}
   V_5 - V_7 = V_x
@@ -83,7 +85,7 @@ We considered the equations \ref{eq:kvl1}, \ref{eq:kvl2}, \ref{eq:kvl3}, \ref{eq
 \end{equation}
 
 \begin{equation}
- V_1 = V_s 
+ I_X = (V_4 - V_5)/R_5 - K_b(V_2 - V_4) 
   \label{eq:kvl10}
 \end{equation}
 
@@ -111,7 +113,7 @@ Ae^{-t/\tau}.
 Now, we only need an initial condition to find the constant "A" which is going to be the value of $V_x$, the capacitor's voltage for t$\leq$0. A plot of the solution in t$\in$[0;20]ms is shown in \ref{fig:v5_n}. Analysing the parameters of the circuit for t=0 we note that $V_7$ = 0V and $V_c$ decreases, which leads to
 
 \begin{equation}
-  V_5 = V_c = V_xe^{t/\tau} 
+  V_5 = V_c = V_xe^{-t/\tau} 
   \label{eq:kvl12}
 \end{equation}
 
@@ -197,6 +199,8 @@ Now we are able to describe the final solution $v_5$(t) after converting the for
   v_5 = v_{5f} + v_{5n}
   \label{eq:kvl20}
 \end{equation}
+
+The following plot displays $v_5$(t) and $v_s$(t) for t$\in$[-5;20]ms. The values of t$<$0 were obtained in \ref{sec:na}.
 
 \begin{figure}[h] \centering
 \includegraphics[width=0.6\linewidth]{v5_vs.eps}
