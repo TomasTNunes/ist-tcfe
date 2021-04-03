@@ -20,7 +20,6 @@
 .options savecurrents
 
 .INCLUDE data_4_ng.txt
-.ic v(5)=8.573530 v(7)=0
 .end
 .control
 

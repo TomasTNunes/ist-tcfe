@@ -119,7 +119,7 @@ fprintf(data_ngf2,'Vs 1 0 DC 0\n');
 fprintf(data_ngf2,'Vaux 8 6 DC 0\n');
 fprintf(data_ngf2,'Hd 4 7 vaux %.11fk\n', DATA(11));
 fprintf(data_ngf2,'Gb 5 3 (2,4) %.11fm\n', DATA(10));
-fclose(data_ngf2);
+fclose(data_ngf2); 
 
 %%%%%Nodal method 2) NUMERIC%%%%%
 
@@ -178,7 +178,6 @@ syms A s
 vc_n(t) = A*exp(s*t);
 
 %%%%%NATURAL SOLUTION 3) WRITE FILE DATA_3_NG.TXT%%%%%
-
 data_ngf3 = fopen('data_3_ng.txt','w');
 fprintf(data_ngf3,'R1 1 2 %.11fk\n', DATA(1));
 fprintf(data_ngf3,'R2 2 3 %.11fk\n', DATA(2));
@@ -192,6 +191,7 @@ fprintf(data_ngf3,'Vs 1 0 DC 0\n');
 fprintf(data_ngf3,'Vaux 8 6 DC 0\n');
 fprintf(data_ngf3,'Hd 4 7 vaux %.11fk\n', DATA(11));
 fprintf(data_ngf3,'Gb 5 3 (2,4) %.11fm\n', DATA(10));
+fprintf(data_ngf3,'.ic v(5)=%.6f v(7)=%f', V5n,V7n);
 fclose(data_ngf3);
 
 %%%%%NATURAL SOLUTION 3) NUMERIC%%%%%
@@ -274,6 +274,7 @@ fprintf(data_ngf4,'Vs 1 0 ac 1.0 -90 sin(0 1 1k)\n');
 fprintf(data_ngf4,'Vaux 8 6 DC 0\n');
 fprintf(data_ngf4,'Hd 4 7 vaux %.11fk\n', DATA(11));
 fprintf(data_ngf4,'Gb 5 3 (2,4) %.11fm\n', DATA(10));
+fprintf(data_ngf4,'.ic v(5)=%.6f v(7)=%f', V5n,V7n);
 fclose(data_ngf4);
 
 %%%%%SOLUTION 5) PLOT%%%%%
@@ -330,18 +331,18 @@ vc_freq = fh(freq);
 %%%%%FREQUENCY ANALYSIS 6) PLOT%%%%%
 
 hf = figure (4);
-semilogx(freq,20*log10(abs(v5_freq)), "r",freq,20*log10(abs(vs_freq)),"b",freq,20*log10(abs(vc_freq)), "g-");
+semilogx(freq,20*log10(abs(v5_freq)), "r",freq,20*log10(abs(vc_freq)), "g",freq,20*log10(abs(vs_freq)),"b");
 xlabel ("f [Hz]");
 ylabel ("|v| dB");
-legend('v5(f)','vs(f)','vc(f)','Location','southwest');
+legend('v5(f)','vc(f)','vs(f)','Location','southwest');
 print (hf, "freqresp.eps", "-depsc");
 
 hf = figure (5);
 hold on
-semilogx(freq,180/pi*angle(v5_freq), "r",freq,180/pi*angle(vs_freq),"b",freq,180/pi*angle(vc_freq), "g-");
+semilogx(freq,180/pi*angle(v5_freq), "r",freq,180/pi*angle(vc_freq), "g",freq,180/pi*angle(vs_freq),"b");
 xlabel ("f [Hz]");
 ylabel ("phase [degrees]");
-legend('phase.v5(f)','phase.vs(f)','phase.vc(f)','location','northwest');
+legend('phase.v5(f)','phase.vc(f)','phase.vs(f)','location','northwest');
 print (hf, "phase_oct.eps", "-depsc");
 
 
