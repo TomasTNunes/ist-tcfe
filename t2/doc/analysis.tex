@@ -9,7 +9,7 @@ $R_1$ from node 1 to 2; $R_2$ from node 2 to 3; $R_3$ from node 2 to 4; $R_4$ fr
 \subsection{Nodal Analysis for t$<$0}
 \label{sec:na}
 
-In this first step, we use Nodal Analysis to determine the voltage in each node as well as the current in every branch of the circuit, when t$<$0. We considered the voltage source $v_s$ to be connected for a long time so the voltages are already constant. Since $i_C$ = C$\frac{dv_c}{dt}$ we can assume $i_C$ = 0. \par 
+In this first step, we use Nodal Analysis to determine the voltage in each node as well as the current in every branch of the circuit, when t$<$0. We considered the voltage source $v_s$ to be connected for a long time so the voltages are already constant. Since $i_C$ = $C$$\frac{dv_c}{dt}$ we can assume $i_C$ = 0. \par 
 This method is based on Kirchhoff's Current Law (KCL), and firstly consists in
 deriving equations for the current flow in nodes not connected to voltage sources,
 followed by writing aditional equations in nodes related to voltage sources. The node 
@@ -210,6 +210,7 @@ The following plot displays $v_5$(t) and $v_s$(t) for t$\in$[-5;20]ms. The value
 \FloatBarrier
 
 \subsection{Frequency response}
+\label{sec:frequency}
 
 In this final step we use the functions $v_5$(f) and $v_7$(f) (voltages on nodes 5 and 7, respectively, in terms of frequency, f) using a logarithmic scale for frequency (dB) and expressing the phase in degrees, with f$\in$[0.1;1]kHz. \par
 Defining $v_C$(f) = $v_5$(f) - $v_7$(f), we can then plot different functions $v_S$(f), $v_C$(f) and $v_6$(f) as seen in \ref{fig:freqresp} (amplitude) and in \ref{fig:phase_oct} (phase, in degrees).
@@ -230,7 +231,20 @@ Defining $v_C$(f) = $v_5$(f) - $v_7$(f), we can then plot different functions $v
 \end{figure}
 \FloatBarrier
 
+Firstly we can analyze the behavior of $v_s$(f) and verify that both in terms of magnitude and phase, a constant value is presented regardless of the frequency. This is due to the fact that $v_s$(f) is defined as $v_s$ = sin($2$.$\pi$.$f$.$t$), where we can see that neither the magnitude nor the phase depend on frequency.
+Analyzing $v_c$ it can be seen that it behaves as a low pass filter, because for low frequencies the capacitor has time to charge up while for high frequencies the difference between $v_7$ and $v_5$ decreases, since the capacitor no longer has time to charge up functioning as a short circuit. These changes on high frequencies start to occur when the cutoff frequency ($f_c = \frac{1}{2.\pi.\tau}$)is exceeded and it turns out that the transition period is between two decades as expected. In this case we have a cutoff frequency around 50 Hz and the transition is between the first and third decades. 
+Simplifying the circuit to an independent voltage source, an equivalent resistor and a capacitor in serie we can obtain two equations, (\ref{eq:freqresp1} and \ref{eq:freqresp2}), and it is possible to see that for low frequencies $v_c$=$v_s$ and phase = -$\frac{\pi}{2}$, and for high frequencies $v_c$=$0$ and phase = $-\pi$.
+Finally the changes presented in $v_s$(f) and in $v_5$(f) are due to the presence of the impedance of the capacitor in the calculations and this fact makes these variables depend on the frequency. 
 
+\begin{equation}
+  V_c = \frac{V_s}{\sqrt{1 + (R_{eq}.C.2\pi.f)^2}}
+  \label{eq:freqresp1}
+\end{equation}
+
+\begin{equation}
+  \phi_{V_c} = -\frac{\pi}{2} - arctan(R_{eq}.C.2\pi.f)
+  \label{eq:freqresp2}
+\end{equation}
 
 
 
