@@ -1,0 +1,97 @@
+*Values
+*Units for the values: V, mA, kOhm and mS
+*R1 =10000 Ohm
+*R2 = 10000 Ohm
+*C=10*10⁻6 F
+
+* forces current values to be saved
+.options savecurrents
+
+*************Circuito que mandei para o messenger*****************
+
+***Fonte dependente (meti amplitude de 13.94 que equivale a 230/16.5)
+Vs 1 0 0 sin(0 23 50 0 0 90)
+
+***Envelope detector***
+De 1 2 Default
+R1 2 0 10k
+C 2 0 10u
+
+***Voltage regulator***
+R2 2 3 10k
+Dr1 3 4 Default
+Dr2 4 5 Default
+Dr3 5 6 Default
+Dr4 6 7 Default
+Dr5 7 8 Default
+Dr6 8 9 Default
+Dr7 9 10 Default
+Dr8 10 11 Default
+Dr9 11 12 Default
+Dr10 12 13 Default
+Dr11 13 14 Default
+Dr12 14 15 Default
+Dr13 15 16 Default
+Dr14 16 17 Default
+Dr15 17 18 Default
+Dr16 18 19 Default
+Dr17 19 20 Default
+Dr18 20 21 Default
+Dr19 21 0 Default
+
+
+
+
+.model Default D
+.op
+.end
+
+
+
+.control
+
+*makes plots in color
+set hcopypscolor=0
+set color0=white
+set color1=black
+set color2=red
+set color3=blue
+set color4=violet
+set color5=rgb:3/8/0
+set color6=rgb:4/0/0
+
+
+*3)
+
+*4) 
+echo "********************************************"
+echo  "Transient analysis"
+echo "********************************************"
+tran 1e-5 0.7 0.5
+
+***Average***
+meas tran yavg AVG v(3) from=500m to=700m
+
+*** max and min vO***
+meas tran ymax MAX v(3) from=500m to=700m
+meas tran ymin MIN v(3) from=500m to=700m
+
+let vripple_reg = ymax - ymin
+
+print yavg ymax ymin vripple_reg
+
+plot  v(2) v(1)
+hardcopy Ven.ps v(2) v(1)
+
+plot  v(3)
+hardcopy Vout.ps v(3)
+
+*5)
+plot v(3)-12
+hardcopy v(o)-12.ps v(3)-12
+
+
+quit
+.endc
+
+
