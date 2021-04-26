@@ -5,7 +5,7 @@ clear all
 A_vin = 230;
 f = 50;
 w=2*pi*f;
-n=10;
+n=15;
 
 
 A_vi = A_vin/n;

@@ -13,36 +13,22 @@
 Vs 1 0 0 sin(0 23 50 0 0 90)
 
 ***Envelope detector***
-De 1 2 Default
+De 1 2 Default_1
 R1 2 0 10k
 C 2 0 10u
 
 ***Voltage regulator***
-R2 2 3 10k
-Dr1 3 4 Default
-Dr2 4 5 Default
-Dr3 5 6 Default
-Dr4 6 7 Default
-Dr5 7 8 Default
-Dr6 8 9 Default
-Dr7 9 10 Default
-Dr8 10 11 Default
-Dr9 11 12 Default
-Dr10 12 13 Default
-Dr11 13 14 Default
-Dr12 14 15 Default
-Dr13 15 16 Default
-Dr14 16 17 Default
-Dr15 17 18 Default
-Dr16 18 19 Default
-Dr17 19 20 Default
-Dr18 20 21 Default
-Dr19 21 0 Default
+R2 2 3 1k
+Dr1 3 0 Default
 
 
 
 
-.model Default D
+
+
+
+.model Default D (n=18)
+.model Default_1 D
 .op
 .end
 
