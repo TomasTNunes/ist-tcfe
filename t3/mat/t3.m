@@ -5,12 +5,12 @@ format long;
 A_vin = 230;
 f = 50;
 w=2*pi*f;
-n=10;
+n=230/1500;
 
 
 A_vi = A_vin/n;
 
-t=linspace(4e-1, 6e-1, 1000);
+t=linspace(4e-1, 6e-1, 50000);
 
 vIN = A_vin*cos(w*t);
 vI = A_vi*cos(w*t);
@@ -23,8 +23,8 @@ legend("vI");
 print (hf,"vI.eps", "-depsc");
 
 %%%%%%%%%%%%%%ENVELOPE DETECTOR%%%%%%%%%%%%%%
-Renv=10e3;
-Cenv=10e-6;
+Renv=1000e3;
+Cenv=1020e-6;
 
 vOenv = zeros(1, length(t));
 vOr = zeros(1, length(t));
@@ -64,12 +64,12 @@ legend("envelope");
 print (hf,"vOenv_vOr.eps", "-depsc");
 
 %%%%%%%%%%%%%%VOLTAGE REGULATOR%%%%%%%%%%%%%%
-Rreg = 1e3;
+Rreg = 951.06e3;
 Vt = 0.026;
 N = 1;
 Is = 1*10^(-14);
-n_diodos = 17;
-VON = 0.703319;
+n_diodos = 18;
+VON = 12/n_diodos;
 
 rd = Vt*N/(Is*exp(VON/(N*Vt)))
 
@@ -81,9 +81,10 @@ voreg = n_diodos*rd/(n_diodos*rd+Rreg)*vireg;
 vOreg = VOreg + voreg;
 
 vripple_reg = max(vOreg)-min(vOreg)
-
 hf=figure(3);
 plot(t*1000, vOreg);
+ylim([12-0.5*10^-5 12+0.5*10^-5])
+%yticks([12-0.5*10^-5 12 12+0.5*10^-5])
 title("Output voltage");
 xlabel ("t[ms]");
 legend("regulator");
@@ -96,20 +97,44 @@ xlabel ("t[ms]");
 legend("vO-12");
 print (hf,"vO-12.eps", "-depsc");
 
-mean(vOreg-12)
-Quality = 1/vripple_reg + abs(1/mean(vOreg-12))
-Cost = 1*(Rreg+Renv)/1000 + Cenv*10^6 + 0.1*(4+n_diodos)
-Merit = Quality/Cost
 
-voavg = mean(vOreg)
-vomax = max(vOreg)
-vomin = min(vOreg)
-vripplereg = vripple_reg
-voenvavg = VIreg
-voenvmax = max(vOenv)
-voenvmin = min(vOenv)
-vrippleenv = vripple_env
+Cost = 1*(Rreg+Renv)/1000 + Cenv*10^6 + 0.1*(4+n_diodos);
+Merit = 1/(Cost * (vripple_reg + abs(mean(vOreg-12)) + 10^(-6)));
 
+voavg = mean(vOreg);
+vomax = max(vOreg);
+vomin = min(vOreg);
+vripplereg = vripple_reg;
+voenvavg = VIreg;
+voenvmax = max(vOenv);
+voenvmin = min(vOenv);
+vrippleenv = vripple_env;
+
+
+diary "Envelope_tab.tex"
+diary on
+printf("$V_I$ & %.3f\n", A_vi);
+printf("$V_{max}$ & %.3f\n", voenvmax);
+printf("$V_{min}$ & %.3f\n", voenvmin);
+printf("$V_{ripple}$ & %.6e\n",vrippleenv);
+printf("$V_{avg}$ & %.3f\n",voenvavg);
+diary off
+
+
+diary "Regulator_tab.tex"
+diary on
+printf("$V_{max}$ & %.5f\n", vomax);
+printf("$V_{min}$ & %.5f\n", vomin);
+printf("$V_{ripple}$ & %.6e\n",vripplereg);
+printf("$V_{avg}$ & %.5f\n",voavg);
+printf("$V_{avg}$-12 & %.5f\n",voavg-12);
+diary off
+
+diary "Merit_tab.tex"
+diary on
+printf("Cost & %.3f\n", Cost);
+printf("Merit & %.4f\n", Merit);
+diary off
 
 
 

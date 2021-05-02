@@ -1,87 +1,66 @@
 \section{Simulation Analysis}
-\label{sec:simulation}
 
-\subsection{Operating Point Analysis}
+In this section we present the results obtained for a 10 period simulation of the circuit.
 
-Table~\ref{tab:op} shows the simulated operating point results for the circuit
-under analysis. Compared to the theoretical analysis results, one notices the
-following differences: describe and explain the differences.
+\subsection{Envelope Detector Output}
+
+\begin{figure}[h] \centering
+\includegraphics[width=0.6\linewidth]{ven.pdf}
+\caption{vO Envelope Detector}
+\label{fig:Ven}
+\end{figure}
 
 \begin{table}[h]
   \centering
   \begin{tabular}{|l|r|}
     \hline    
-    {\bf Name} & {\bf Value [A or V]} \\ \hline
-    \input{../sim/op_tab}
+    {\bf Name} & {\bf Value [V]} \\ \hline
+    \input{../sim/Envelopeng_tab}
   \end{tabular}
-  \caption{Operating point. A variable preceded by @ is of type {\em current}
-    and expressed in Ampere; other variables are of type {\it voltage} and expressed in
-    Volt.}
-  \label{tab:op}
+  \caption{Envelope Detector}
+  \label{tab:Envelopeng}
 \end{table}
+\FloatBarrier
 
-\lipsum[1-1]
-
-
-\subsection{Transient Analysis}
-
-Figure~\ref{fig:trans} shows the simulated transient analysis results for the
-circuit under analysis. Compared to the theoretical analysis results, one
-notices the following differences: describe and explain the differences.
+\subsection{Voltage Regulator Output}
 
 \begin{figure}[h] \centering
-\includegraphics[width=0.6\linewidth]{trans.pdf}
-\caption{Transient output voltage}
-\label{fig:trans}
+\includegraphics[width=0.6\linewidth]{vout.pdf}
+\caption{vO Voltage Regulator}
+\label{fig:vOregng}
 \end{figure}
 
-\lipsum[1-1]
-
-
-
-\subsection{Frequency Analysis}
-
-\subsubsection{Magnitude Response}
-
-Figure~\ref{fig:acm} shows the magnitude of the frequency response for the
-circuit under analysis. Compared to the theoretical analysis results, one
-notices the following differences: describe and explain the differences.
 
 \begin{figure}[h] \centering
-\includegraphics[width=0.6\linewidth]{acm.pdf}
-\caption{Magnitude response}
-\label{fig:acm}
+\includegraphics[width=0.6\linewidth]{vout-12.pdf}
+\caption{vO Voltage Regulator - 12}
+\label{fig:vO-12ng}
 \end{figure}
 
-\lipsum[1-1]
 
-\subsubsection{Phase Response}
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value [V]} \\ \hline
+    \input{../sim/Regulatorng_tab}
+  \end{tabular}
+  \caption{Voltage Regulator}
+  \label{tab:Regulatorng}
+\end{table}
+\FloatBarrier
 
-Figure~\ref{fig:acp} shows the magnitude of the frequency response for the
-circuit under analysis. Compared to the theoretical analysis results, one
-notices the following differences: describe and explain the differences.
+\subsection{Cost and Merit}
 
-\begin{figure}[h] \centering
-\includegraphics[width=0.6\linewidth]{acp.pdf}
-\caption{Phase response}
-\label{fig:acp}
-\end{figure}
-
-\lipsum[1-1]
-
-\subsubsection{Input Impedance}
-
-Figure~\ref{fig:zim} shows the magnitude of the frequency response for the
-circuit under analysis. Compared to the theoretical analysis results, one
-notices the following differences: describe and explain the differences.
-
-\begin{figure}[h] \centering
-\includegraphics[width=0.6\linewidth]{zim.pdf}
-\caption{Input impedance}
-\label{fig:zim}
-\end{figure}
-
-\lipsum[1-1]
-
-
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value [V]} \\ \hline
+    \input{../sim/Meritng_tab}
+  \end{tabular}
+  \caption{Cost and Merit}
+  \label{tab:Meritng}
+\end{table}
+\FloatBarrier
 
