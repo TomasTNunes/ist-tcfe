@@ -84,7 +84,9 @@ vripple_reg = max(vOreg)-min(vOreg)
 hf=figure(3);
 plot(t*1000, vOreg);
 ylim([12-0.5*10^-5 12+0.5*10^-5])
-%yticks([12-0.5*10^-5 12 12+0.5*10^-5])
+yticks = get (gca, "ytick");
+ylabels = arrayfun (@(x) sprintf ("%.6f", x), yticks, "uniformoutput", false);
+set (gca, "yticklabel", ylabels)
 title("Output voltage");
 xlabel ("t[ms]");
 legend("regulator");
