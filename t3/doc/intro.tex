@@ -3,7 +3,7 @@
 
 The objective of this laboratory assignment is to design an AC/DC converter circuit using an Envelope Detector circuit, a Voltage Regulator circuit and components such as resistors, capacitors and diodes. A representation of the circuit can be seen in Figure \ref{fig:t3}. 
 The main goal of this project is to balance the cost of the circuit and its effectiveness given the characteristics required ($V_{out}=12V$ with DC signal). This is given by the Merit Figure. \par
-Since we know the value of $V_1$ and we are considering the ideal model for a transformer, we can replace the transformer used by a dependent current source (on the left) and a dependent voltage source (on the right), as seen in Figure \ref{fig:t3}. Thus, the equations for these dependent sources are, respectively:
+Since we know the value of $V_1$ and we are considering the ideal model for a transformer, we can replace the transformer used by a dependent current source (on the left) and a dependent voltage source (on the right), as seen in Figure \ref{fig:t3}. The value of the variable $n$ is 1.0(45); we used this value because we verified that it gave us the best voltage ripple value for this circuit. The equations for these dependent sources are, respectively:
 
 \begin{equation}
   i_1=\frac{1}{n}i_2
@@ -15,13 +15,13 @@ Since we know the value of $V_1$ and we are considering the ideal model for a tr
   \label{eq:kvl2}
 \end{equation} 
 
-By trial and error, we concluded that the best design for the circuit in order to have the best quality/cost ratio was:
-\quad using a Full-Wave Rectifier, a capacitor and a resistor for the Envelope Detector;
-\quad using a resistor, 1x diodes for the Voltage Regulator.
+By trial and error, we concluded that the best design for the circuit in order to have the best quality/cost ratio was:\par
+\quad using a Full-Wave Rectifier, a capacitor and a resistor for the Envelope Detector;\par
+\quad using a resistor and 19 diodes for the Voltage Regulator.
 
 In Section \ref{sec:analysis}, a theoretical analysis of the circuit using Octave is
 presented. In Section \ref{sec:simulation}, the circuit is analysed by
-simulation with Ngspice software and the results are compared to the theoretical results in Section \ref{sec:comparison}. Conclusions of this study can be found in
+simulation with Ngspice software and the results are compared to the theoretical results in Section \ref{sec:side-by-side}. Conclusions of this study can be found in
 Section \ref{sec:conclusion}.
 
 \begin{figure}[htp] \centering

@@ -1,7 +1,7 @@
 \section{Theoretical Analysis}
 \label{sec:analysis}
 
-We used the ideal diode model for the theoretical predictions, with a voltage $V_{on}=0.7V$. The reference values for $I_S$, $\eta$ and $V_T$ were taken from Ngspice's data from the Default Diode Model used by us.
+We used the ideal diode model for the theoretical predictions, with a voltage $V_{on}=0.6316V$. The reference values for $I_S$, $\eta$ and $V_T$ were taken from Ngspice's data from the Default Diode Model used by us.
 
 \subsection{Envelope Detector Output Prediction}
 \label{ed}
@@ -16,23 +16,32 @@ v_O=v_S
 
  $t_{off}$ is given as 
 \begin{equation}
-\frac{1}{\omega}arctan(\frac{1}{\omega RC})
+\frac{1}{\omega}arctan(\frac{1}{\omega RC})+t_0 
 \label{eq:kvl4}
 \end{equation}
 
-At $t=t_{off}$, 
+At $t>t_{off}$, 
 
 \begin{equation}
 v_O=Acos(\omega t_{off})e^{-\frac{t-t_{off}}{RC}}
 \label{eq:kvl5}
 \end{equation}
 
-When $t=t_{on}$,
+Until $t=t_{on}$, which is given by,
 
 \begin{equation}
-v_O=Acos(\omega t_{off})e^{-\frac{t_{on}-t_{off}}{RC}}
+Acos(\omega t_{on})=Acos(\omega t_{off})e^{-\frac{t_{on}-t_{off}}{RC}}
 \label{eq:kvl6}
 \end{equation}
+
+and $t_{off}$ becomes,
+
+\begin{equation}
+t_{off}=t_{off}+T/2
+\label{eq:kvl10}
+\end{equation}
+
+And the cycle repeats.
 
 \begin{figure}[h] \centering
 \includegraphics[width=0.6\linewidth]{vOenv_vOr.eps}
@@ -64,7 +73,7 @@ v_S=V_S+v_s , v_O=V_O+v_o , V_O=nV_{on} , V_S>nV_{on}
 \end{equation}
 
 \begin{equation}
-v_o=\frac{nr_d}{nr_d+R})v_s
+v_o=\frac{nr_d}{nr_d+R}v_s
 \label{eq:kvl8}
 \end{equation}
 
@@ -102,21 +111,6 @@ The incremental diode resistance is given by
 \end{table}
 \FloatBarrier
 
-\subsection{Cost and Merit}
-\label{cm}
-
-
-\begin{table}[h]
-  \centering
-  \begin{tabular}{|l|r|}
-    \hline    
-    {\bf Name} & {\bf Value [V]} \\ \hline
-    \input{../mat/Merit_tab}
-  \end{tabular}
-  \caption{Cost and Merit}
-  \label{tab:Merit}
-\end{table}
-\FloatBarrier
 
 
 

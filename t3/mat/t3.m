@@ -5,7 +5,7 @@ format long;
 A_vin = 230;
 f = 50;
 w=2*pi*f;
-n=230/1500;
+n=230/220;
 
 
 A_vi = A_vin/n;
@@ -15,16 +15,10 @@ t=linspace(4e-1, 6e-1, 50000);
 vIN = A_vin*cos(w*t);
 vI = A_vi*cos(w*t);
 
-hf=figure(1);
-plot(t*1000, vI);
-title("Input voltage");
-xlabel ("t[ms]");
-legend("vI");
-print (hf,"vI.eps", "-depsc");
 
 %%%%%%%%%%%%%%ENVELOPE DETECTOR%%%%%%%%%%%%%%
-Renv=1000e3;
-Cenv=1020e-6;
+Renv=600e3;
+Cenv=560e-6;
 
 vOenv = zeros(1, length(t));
 vOr = zeros(1, length(t));
@@ -64,11 +58,11 @@ legend("envelope");
 print (hf,"vOenv_vOr.eps", "-depsc");
 
 %%%%%%%%%%%%%%VOLTAGE REGULATOR%%%%%%%%%%%%%%
-Rreg = 951.06e3;
+Rreg = 512.99e3;
 Vt = 0.026;
 N = 1;
 Is = 1*10^(-14);
-n_diodos = 18;
+n_diodos = 19;
 VON = 12/n_diodos;
 
 rd = Vt*N/(Is*exp(VON/(N*Vt)))
@@ -83,7 +77,6 @@ vOreg = VOreg + voreg;
 vripple_reg = max(vOreg)-min(vOreg)
 hf=figure(3);
 plot(t*1000, vOreg);
-ylim([12-0.5*10^-5 12+0.5*10^-5])
 yticks = get (gca, "ytick");
 ylabels = arrayfun (@(x) sprintf ("%.6f", x), yticks, "uniformoutput", false);
 set (gca, "yticklabel", ylabels)
@@ -131,13 +124,5 @@ printf("$V_{ripple}$ & %.6e\n",vripplereg);
 printf("$V_{avg}$ & %.5f\n",voavg);
 printf("$V_{avg}$-12 & %.5f\n",voavg-12);
 diary off
-
-diary "Merit_tab.tex"
-diary on
-printf("Cost & %.3f\n", Cost);
-printf("Merit & %.4f\n", Merit);
-diary off
-
-
 
 
