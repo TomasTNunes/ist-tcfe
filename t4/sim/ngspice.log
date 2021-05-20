@@ -1,0 +1,67 @@
+
+Circuit: .options savecurrents
+
+false = 0.000000e+00
+true = 1.000000e+00
+boltz = 1.380649e-23
+c = 2.997925e+08
+cb_value = 1.000000e-03
+ci_value = 1.000000e-03
+co_value = 1.000000e-06
+e = 2.718282e+00
+echarge = 1.602177e-19
+i = 0.000000e+00,1.000000e+00
+kelvin = -2.73150e+02
+no = 0.000000e+00
+pi = 3.141593e+00
+planck = 6.626070e-34
+r1_value = 8.000000e+04
+r2_value = 2.000000e+04
+rc_value = 1.000000e+03
+re_value = 1.000000e+02
+rin_value = 1.000000e+02
+rout_value = 1.000000e+02
+yes = 1.000000e+00
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+
+Initial Transient Solution
+--------------------------
+
+Node                                   Voltage
+----                                   -------
+vcc                                         12
+in                                           0
+in2                                          0
+base                                   1.58092
+coll                                    3.8942
+emit                                  0.872632
+emit2                                  4.70867
+out                                          0
+vin#branch                                   0
+vcc#branch                          -0.0811493
+
+
+No. of Data Rows : 1008
+
+The file "vo1.ps" may be printed on a postscript printer.
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+
+No. of Data Rows : 71
+
+The file "vo1f.ps" may be printed on a postscript printer.
+
+The file "vo2f.ps" may be printed on a postscript printer.
+lco                 =  8.880418e+03
+uco                 =  1.603742e+06
+data_TAB
+z_in1 = 5.638527e+02,-8.44302e+01
+gain = -7.85216e+01,-1.54185e+00
+lco = 8.880418e+03
+uco = 1.603742e+06
+bandwith = 1.594862e+06
+cost = 1.013002e+05
+merit = -1.39209e-01,-2.73352e-03
+data_END
+ngspice-31 done
