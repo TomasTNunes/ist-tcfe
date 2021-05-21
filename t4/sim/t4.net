@@ -1,14 +1,14 @@
 .options savecurrents
 
 .param Rin_value=0.1k
-.param R1_value=80k
+.param R1_value=100k
 .param R2_value=20k
-.param Rc_value=1k
+.param Rc_value=0.5k
 .param Re_value=0.1k
-.param Rout_value=100
+.param Rout_value=0.1k
 .param Ci_value=1000u
-.param Cb_value=1000u
-.param Co_value=1u
+.param Cb_value=5000u
+.param Co_value=1995u
 
 .csparam Rin_value={Rin_value}
 .csparam R1_value={R1_value}
@@ -54,10 +54,19 @@ Co emit2 out {Co_value}
 * load
 RL out 0 8
 
-.op
+
 .end
 
 .control
+
+*OP analysis
+op
+
+let vce=v(coll)-v(emit)
+let vbe=v(base)-v(emit)
+
+let vec=v(emit2)
+let veb=v(emit2)-v(coll)
 
 print all
 
@@ -87,14 +96,13 @@ let bandwith = uco-lco
 let Z_in1 = v(in2)[40]/vin#branch[40]/(-1)
 
 *Cost and Merit
-let cost = Rin_value + R1_value + R2_value + Re_value + Rc_value + Rout_value + Ci_value + Cb_value + Co_value + 0.1*2
-let merit = gain*bandwith/(cost*lco)
+let cost = (Rin_value + R1_value + R2_value + Re_value + Rc_value + Rout_value)/1000 + (Ci_value + Cb_value + Co_value)*10^6 + 0.1*2
+let merit = abs(gain)*bandwith/(cost*lco)
 
 
 echo  "data_TAB"
-print Z_in1 gain lco uco bandwith cost merit
+print abs(Z_in1) abs(gain) lco uco bandwith cost merit
 echo  "data_END"
-
 
 
 quit
