@@ -318,7 +318,7 @@ sn_5 = solve(Eqd5_2,Eqd5_0_R6,Eqd5_0_R7,Eqd5_Vs,Eqd5_Vd,Eqd5_5,Eqd5_3);
 
 freq = logspace(-1,6,200);
 
-fh = function_handle(sn_5.V5n_p);
+fh = function_handle(sn_5.V5n_p)
 v5_freq = fh(freq); 
 
 fh = function_handle(Vs_p);

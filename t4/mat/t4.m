@@ -4,8 +4,8 @@ VT=25e-3
 BFN=178.7
 VAFN=69.7
 RE1=100
-RC1=1000
-RB1=80000
+RC1=500
+RB1=100000
 RB2=20000
 VBEON=0.7
 VCC=12
@@ -42,13 +42,15 @@ RE1=100
 ZI1_RE = 1/(1/RB+1/(((ro1+RC1+RE1)*(rpi1+RE1)+gm1*RE1*ro1*rpi1 - RE1^2)/(ro1+RC1+RE1)))
 ZX_RE = ro1*((RSB+rpi1)*RE1/(RSB+rpi1+RE1))/(1/(1/ro1+1/(rpi1+RSB)+1/RE1+gm1*rpi1/(rpi1+RSB)))
 ZX_RE = ro1*(1/RE1+1/(rpi1+RSB)+1/ro1+gm1*rpi1/(rpi1+RSB))/(1/RE1+1/(rpi1+RSB) ) 
-ZO1_RE = 1/(1/ZX+1/RC1)
+ZO1_RE = 1/(1/ZX_RE+1/RC1)
 
 RE1=0
 ZI1 = 1/(1/RB+1/(((ro1+RC1+RE1)*(rpi1+RE1)+gm1*RE1*ro1*rpi1 - RE1^2)/(ro1+RC1+RE1)))
 ZO1 = 1/(1/ro1+1/RC1)
 
 %ouput stage
+RE1=100
+RL = 8
 BFP = 227.3
 VAFP = 37.2
 RE2 = 100
@@ -74,3 +76,68 @@ AV = (gB+gm2/gpi2*gB)/(gB+ge2+go2+gm2/gpi2*gB)*AV1
 AV_DB = 20*log10(abs(AV))
 ZI=ZI1
 ZO=1/(go2+gm2/gpi2*gB+ge2+gB)
+
+ 
+Vin=0.01
+rpi2=1/gpi2
+ro2=1/go2
+
+freq = logspace(1, 8, 700);
+gain = zeros(1,700);
+
+
+for a = 1:1:700
+w=2*pi*freq(a);
+Zci=1/(j*w*1000*10^(-6));
+Zcb=1/(j*w*5000*10^(-6));
+Zco=1/(j*w*1995*10^(-6));
+
+Y =[1,0,0,0,0,0,0;
+-1/RS, 1/RS+1/Zci, -1/Zci, 0,0,0,0;
+0, -1/Zci, 1/Zci+1/RB+1/rpi1, -1/rpi1,0,0,0;
+0,0,-gm1-1/rpi1, gm1+1/rpi1 + 1/RE1 + 1/Zcb + 1/ro1, -1/ro1, 0,0;
+0,0, gm1, -gm1-1/ro1, 1/ro1 + 1/RC1 + 1/rpi2, -1/rpi2, 0;
+0,0,0,0,0, -1/Zco, 1/Zco + 1/RL;
+0,0,0,0, -gm2-1/rpi2, gm2 + 1/rpi2 + 1/RE2 + 1/Zco + 1/ro2, -1/Zco;
+];
+
+B=[Vin; 0; 0; 0; 0; 0; 0];
+X = Y\B;
+	
+gain_db(a)=20*log10(abs(X(7)/X(1)));
+
+endfor
+
+max_gain_db_3 = max(gain_db) - 3
+minn = 1
+
+for a = 1:1:700
+if abs(gain_db(a)-max_gain_db_3) < minn
+minn = abs(gain_db(a)-max_gain_db_3);
+lco=freq(a);
+bbb=gain_db(a);
+endif
+endfor
+lco
+
+
+hf1 = figure (1);
+semilogx(freq, gain_db);
+xlabel ("f [Hz]");
+ylabel ("gain [dB]");
+%legend('gain(f) dB','Location','southeast');
+print(hf1, "gain_db_teo.eps", "-depsc");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
