@@ -57,18 +57,14 @@ VL out 0 0.0 ac 1.0
 
 .control
 
-print all
 
 
 ac dec 10 10 100MEG
 
 
-
-let out_imp_re= Re(-v(out)[40]/i(VL)[40])
-let out_imp_im= Im(-v(out)[40]/i(VL)[40])
-
+let Zout = abs(v(out)[40]/i(VL)[40])
 echo "out_imp_TAB"
-echo "out_imp = $&out_imp_re + $&out_imp_im j"
+print Zout
 echo "out_imp_END"
 
 

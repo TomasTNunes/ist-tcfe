@@ -59,29 +59,46 @@ RL out 0 8
 
 .control
 
+*makes plots in color
+set hcopypscolor=0
+set color0=white
+set color1=black
+set color2=red
+set color3=blue
+set color4=violet
+set color5=rgb:3/8/0
+set color6=rgb:4/0/0
+
+
 *OP analysis
 op
 
 let vce=v(coll)-v(emit)
 let vbe=v(base)-v(emit)
+let vo1=v(coll)
 
 let vec=v(emit2)
 let veb=v(emit2)-v(coll)
+let vo2=v(emit2)
 
-print all
+echo  "OP_TAB"
+print vce vbe vo1 vec veb vo2
+echo  "OP_END"
+
 
 * time analysis
-tran 1e-5 1e-2
+*tran 1e-5 1e-2
 
-hardcopy vo1.ps vdb(coll)
+*hardcopy vo1.ps vdb(coll)
 
 * frequency analysis
 ac dec 10 10 100MEG
 
 hardcopy vo1f.ps vdb(coll)
+echo vo1f_FIG
 
 hardcopy vo2f.ps vdb(out)
-
+echo vo2f_FIG
 let gain = v(out)[40]/v(in)[40]
 
 *Treshold 
@@ -93,16 +110,27 @@ meas ac uco WHEN vdb(out) = threshold CROSS = LAST
 let bandwith = uco-lco
 
 *input impedance in ohm
-let Z_in1 = v(in2)[40]/vin#branch[40]/(-1)
+let Zin1 = v(in2)[40]/vin#branch[40]/(-1)
 
 *Cost and Merit
-let cost = (Rin_value + R1_value + R2_value + Re_value + Rc_value + Rout_value)/1000 + (Ci_value + Cb_value + Co_value)*10^6 + 0.1*2
+let cost = (Rin_value + R1_value + R2_value + Re_value + Rc_value + Rout_value + 8)/1000 + (Ci_value + Cb_value + Co_value)*10^6 + 0.1*2
 let merit = abs(gain)*bandwith/(cost*lco)
 
 
+
 echo  "data_TAB"
-print abs(Z_in1) abs(gain) lco uco bandwith cost merit
+print abs(Zin1) abs(gain) 
 echo  "data_END"
+
+echo  "freq_TAB"
+print uco lco bandwith
+echo  "freq_END"
+
+echo  "merit_TAB"
+print cost merit 
+echo  "merit_END"
+
+
 
 
 quit

@@ -83,7 +83,6 @@ rpi2=1/gpi2
 ro2=1/go2
 
 freq = logspace(1, 8, 700);
-gain = zeros(1,700);
 
 
 for a = 1:1:700
@@ -108,27 +107,70 @@ gain_db(a)=20*log10(abs(X(7)/X(1)));
 
 endfor
 
-max_gain_db_3 = max(gain_db) - 3
-minn = 1
+max_gain_db_3 = max(gain_db) - 3;
+minn = 1;
 
 for a = 1:1:700
 if abs(gain_db(a)-max_gain_db_3) < minn
 minn = abs(gain_db(a)-max_gain_db_3);
 lco=freq(a);
-bbb=gain_db(a);
 endif
 endfor
-lco
 
+uco = 3.106930*10^6 
+lco 
+bandwith = uco-lco
+cost = (RS + RB1 + RB2 + RE1 + RC1 + RE2 + 8)/1000 + (1000+5000+1995) + 0.2
+merit = abs(AV)*bandwith/(cost*lco)
 
 hf1 = figure (1);
 semilogx(freq, gain_db);
 xlabel ("f [Hz]");
 ylabel ("gain [dB]");
-%legend('gain(f) dB','Location','southeast');
+legend('gain(f) dB','Location','southeast');
 print(hf1, "gain_db_teo.eps", "-depsc");
 
 
+
+diary "OP_tab_teo.tex"
+diary on
+printf("$V_{CE}$ & %.6f\n", VCE);
+printf("$V_{BE}$ & %.7f\n", VBEON);
+printf("$V_{O1}$ & %.6f\n",VO1);
+printf("$V_{EC}$ & %.6f\n", VO2);
+printf("$V_{EB}$ & %.7f\n",VEBON);
+printf("$V_{O2}$ & %.6f\n",VO2);
+diary off
+
+diary "data1_teo.tex"
+diary on
+printf("$Z_{I1}$ & %.4f\n", ZI1);
+printf("$Z_{O1}$ & %.4f\n", ZO1);
+printf("$AV_{1}$ & %.4f\n", abs(AV1));
+printf("$Z_{I2}$ & %.2f\n", ZI2);
+printf("$Z_{O2}$ & %.7f\n", ZO2);
+printf("$AV_{2}$ & %.7f\n", AV2);
+diary off
+
+diary "data2_teo.tex"
+diary on
+printf("$Z_{I}$ & %.4f\n", ZI);
+printf("$Z_{O}$ & %.6f\n", ZO);
+printf("$AV$ & %.5f\n", abs(AV));
+diary off
+
+diary "freq_teo.tex"
+diary on
+printf("$uco$ & %.1f\n", uco);
+printf("$lco$ & %.5f\n", lco);
+printf("$bandwith$ & %.2f\n", bandwith);
+diary off
+
+diary "merit.tex"
+diary on
+printf("$cost$ & %.3f\n", cost);
+printf("$merit$ & %.3f\n", merit);
+diary off
 
 
 
