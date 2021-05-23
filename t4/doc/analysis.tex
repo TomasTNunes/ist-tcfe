@@ -1,67 +1,250 @@
 \section{Theoretical Analysis}
 \label{sec:analysis}
 
-In this section, the circuit shown in Figure~\ref{fig:rc} is analysed
-theoretically, in terms of its time and frequency responses.
+In this section, the circuit shown in Figure \ref{fig:t4} is analysed 
+theoretically.
 
-\section{Time response}
+For the gain stage, we assigned the values $R_S=100\Omega$, $V_T=25\times 10^3 V$, $\beta _{FN}=178.7 $, $V_{AFN}=69.7 V$, $R_{E1}=100 \Omega$, $R_{C1}=500 \Omega$, $R_{B1}=100000 \Omega$, $R_{B2}=20000 \Omega$, $V_{BEON}=0.7 V$, $V_{CC}=12 V$ and defined $R_{SB}$ as
 
-The circuit consists of a single V-R-C loop where a current $i(t)$ circulates. The
-voltage source $v_I(t)$ drives its input, and the output voltage $v_O(t)$ is taken from
-the capacitor terminals. Applying the Kirchhoff Voltage Law (KVL), a single
-equation for the single loop in the circuit can be written as
+\begin{equation*} \label{eq1}
+R_{SB}=\frac{R_B\times R_S}{R_B+R_S}
+\end{equation*}
 
-\begin{equation}
-  Ri(t) + v_O(t) = v_I(t).
-  \label{eq:kvl}
+$g_{m1}$ as
+
+\begin{equation*} \label{eq2}
+g_{m1}=I_{C1}/V_T
+\end{equation*}
+
+$r_{\pi 1}$ as
+
+\begin{equation*} \label{eq3}
+r_{\pi 1}=\frac{\beta _{FN}}{g_{m1}}
+\end{equation*}
+
+and $r_{o1}$ as
+
+\begin{equation*} \label{eq4}
+r_{o1}=\frac{V_{AFN}}{I_{C1}}
+\end{equation*}
+
+For the output stage, we assigned the values $\beta _{FP} = 227.3$, $V_{AFP} = 37.2 V$, $R_{E2} = 100 \Omega$, $V_{EBON} = 0.7 V$, $V_{I2} = V_{O1}$, $I_{E2} = \frac{V_{CC}-V_{EBON}-V_{I2}}{R_{E2}}$, $I_{C2} = \frac{\beta _{FP}}{(\beta _{FP}+1)I_{E2}}$,
+$V_{O2} = V_{CC} - R_{E2}\times I_{E2}$ and defined $g_{m2}$ as
+
+\begin{equation*} \label{eq7}
+g_{m2} = \frac{I_{C2}}{V_T}
+\end{equation*}
+
+$g_{o2}$ as
+
+\begin{equation*} \label{eq8}
+g_{o2} = \frac{I_{C2}}{V_AFP}
+\end{equation*}
+
+$g_{\pi 2}$ as
+
+\begin{equation*} \label{eq9}
+g_{\pi 2} = \frac{g_{m2}}{\beta _{FP}}
+\end{equation*}
+
+and $g_{e2}$ as 
+
+\begin{equation*} \label{eq10}
+g_{e2} = \frac{1}{R_{E2}}
+\end{equation*}
+
+\subsection{Operating point}
+In this analysis, the circuit used is the one presented in Figure \ref{fig:t4}.
+The operating points were computed for both the gain and output stages to verify that the transistors had the acceptable voltages to be functioning. \par
+The NPN transistor used in the gain stage had to obey $V_{CE}>V_{BEON}=0.7 V$. \par
+The PNP transistor used in the output stage had to obey $V_{EC}=V_{O2}>V_{EBON}=0.7 V$. \par
+In the following table, we present the operating point values.
+
+\quad Gain stage:
+Firstly, we have
+\begin{equation*}
+R_B=\frac{1}{\frac{1}{R_{B1}}+\frac{1}{R_{B2}}}
+\end{equation*}
+
+\begin{equation*}
+V_{EQ}=\frac{R_{B2}}{R_{B1}+R_{B2}}V_{CC}
+\end{equation*}
+
+\begin{equation*}
+I_{B1}=\frac{V_{EQ}-V_{BEON}}{R_B+(1+\beta _{FN})*R_{E1}}
+\end{equation*}
+
+\begin{equation*}
+I_{C1}=\beta _{FN}\times I_{B1}
+\end{equation*}
+
+\begin{equation*}
+I_{E1}=(1+\beta _{FN})I_{B1}
+\end{equation*}
+
+\begin{equation*}
+V_{E1}=R_{E1}\times I_{E1}
+\end{equation*}
+
+\begin{equation*}
+V_{O1}=V_{CC}-R_{C1}\times I_{C1}
+\end{equation*}
+
+\begin{equation*}
+V_{CE}=V_{O1}-V_{E1}
+\end{equation*}
+
+\quad Output stage:
+
+\begin{equation*}
+V_{I2}=V_{O1}
+\end{equation*}
+
+\begin{equation*}
+I_{E2}=\frac{V_{CC}-V_{EBON}-V_{I2}}{R_{E2}}
+\end{equation*}
+
+\begin{equation*}
+I_{C2}=\frac{\beta _{FP}}{\beta _{FP}+1} \times I_{E2}
+\end{equation*}
+
+\begin{equation*}
+V_{O2}=V_{CC}-R_{E2} \times I_{E2}
+\end{equation*}
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value [V]} \\ \hline
+    \input{../mat/OP_tab_teo}
+  \end{tabular}
+  \caption{Operating point}
+  \label{tab:OP}
+\end{table}
+
+Note that both transistors are working in the Forward Active Region.
+
+
+\subsection{Gain, input and output impedances}
+
+To obtain the following values we need to analyse the incremental circuit version of the original circuit.  \par
+
+\quad Gain stage:
+We can write the following equations: 
+-To compute the gain stage's gain,
+
+\begin{equation} \label{eq5}
+R_{E1}=0 , AV_1 = \frac{R_{SB}}{R_S} \times \frac{R_{C1}(R_{E1}-g_{m1}\times r_{\pi 1}\times r_{o1})}{(r_{o1}+R_{C1}+R_{E1})\times(R_{SB}+r_{\pi 1}+R_{E1})+g_{m1}*R_{E1}*r_{o1}*r_{\pi 1} - R_{E1}^2)}
 \end{equation}
 
-Because $v_O$ is the voltage between capacitor C's plates, it is related to the
-current $i$ by
-\begin{equation}
-  i(t) = C\frac{dv_O}{dt}.
+-To compute the gain stage's input impedance
+\begin{equation} \label{eq6}
+R_{E1}=0 , Z_{I1} = \frac{1}{\frac{1}{R_B}+\frac{1}{\frac{(r_{o1}+R_{C1}+R_{E1})\times(r_{\pi 1}+R_{E1})+g_{m1}\times R_{E1}\times r_{o1}\times r_{\pi 1} - R_{E1}^2}{r_{o1}+R_{C1}+R_{E1}}}}
 \end{equation}
 
-Hence, Equation~(\ref{eq:kvl}) can be rewritten as
-\begin{equation}
-  RC\frac{dv_O}{dt} + v_O(t) = v_I.
-  \label{eq:kvl2}
+-To compute the gain stage's output impedance
+\begin{equation}\label{eqesq}
+Z_{O1} = \frac{1}{\frac{1}{r_{o1}}+\frac{1}{R_{C1}}}
 \end{equation}
 
-Equation~(\ref{eq:kvl2}) is a linear differencial equation whose solution is a
-superposition of a natural solution $v_{On}$ and a forced solution $v_{Of}$:
+\quad Output stage:
 
-\begin{equation}
-  v_O(t) = v_{On}(t) + v_{Of}(t).
-  \label{eq:vo_sol}
+We can write the following equations:
+
+-To compute the output stage's gain, 
+\begin{equation} \label{eq11}
+AV_2 = \frac{g_{m2}}{g_{m2}+g_{\pi 2}+g_{o2}+g_{e2}}
 \end{equation}
 
-As learned in the theory classes the natural solution is of the form
-\begin{equation}
-  v_{On}(t) = Ae^{-\frac{t}{RC}},
-  \label{eq:vo_nat}
-\end{equation}
-where $A$ is an integration constant.
-
-The forced solution is of the form given in Equation~(\ref{eq:vo_for}) and is
-illustrated in Figure~\ref{fig:forced}.
-
-\begin{equation}
-  V_{Of}(t) = |\bar{V}_{Of}| cos(\omega t + \angle \bar{V}_{Of}),
-  \label{eq:vo_for}
+-To compute the output stage's input impedance,
+\begin{equation} \label{eq12}
+Z_{I2} = \frac{g_{m2}+g_{\pi 2}+g_{o2}+g_{e2}}{g_{\pi 2}(g_{\pi 2}+g_{o2}+g_{e2})}
 \end{equation}
 
-\lipsum[1-1]
+-To compute the output stage's output impedance,
+\begin{equation} \label{eq13}
+Z_{O2} = \frac{1}{g_{m2}+g_{\pi 2}+g_{o2}+g_{e2}}
+\end{equation}
 
+The following table presents the values for the gain, input impedance and output impedance of both stages.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value [$\Omega$]} \\ \hline
+    \input{../mat/data1_teo}
+  \end{tabular}
+  \caption{Gain, input impedance and output impedance}
+  \label{tab:OP}
+\end{table}
+\FloatBarrier
+
+\quad Total:
+
+In order to make a comparison with the simulation's gain, and input and output impedances, we computed the theoretical values for these variables.
+
+\begin{equation} \label{eq13}
+g_B = \frac{1}{\frac{1}{g_{\pi 2}}+Z_{O1}}
+\end{equation}
+
+\begin{equation} \label{eq13}
+AV = AV_1\frac{\frac{g_B+g_{m2}}{g_{\pi 2}\times g_B}}{g_B+g_{e2}+g_{o2}+\frac{g_{m2}}{g_{\pi 2}}\times g_B}
+\end{equation}
+
+\begin{equation} \label{eq13}
+Z_I=Z_{I1}
+\end{equation}
+
+\begin{equation} \label{eq13}
+Z_O=\frac{1}{g_{o2}+\frac{g_{m2}}{g_\pi 2}\times g_B+g_{e2}+g_B}
+\end{equation}
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value [$\Omega$]} \\ \hline
+    \input{../mat/data2_teo}
+  \end{tabular}
+  \caption{Gain, input impedance and output impedance}
+  \label{tab:OP}
+\end{table}
+\FloatBarrier
+
+\subsection{Frequency response}
+In order to obtain the Merit Figure of our circuit, we tried to compute the theoretical value of the bandwidth. However, we were only able to obtain the value of the lower cut off frequency as seen in \ref{fig:gain}, so we used Ngspice's value for the upper cut off frequency. This is due to the fact that for this frequency we need to take parasite capacitors into account which would lead to complex calculations.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value [Hz]} \\ \hline
+    \input{../mat/freq_teo}
+  \end{tabular}
+  \caption{Bandwith}
+  \label{tab:OP}
+\end{table}
+\FloatBarrier
 
 \begin{figure}[h] \centering
-\includegraphics[width=0.8\linewidth]{forced.eps}
-\caption{Forced sinusoidal response.}
-\label{fig:forced}
+\includegraphics[width=0.6\linewidth]{gain_db_teo.eps}
+\caption{Output voltage gain in order to frequency}
+\label{fig:gain}
 \end{figure}
+\FloatBarrier
 
-\section{Frequency response}
+Here we present the merit figure of our circuit.
 
-\lipsum[1-1]
-
-
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value [Mu]} \\ \hline
+    \input{../mat/merit}
+  \end{tabular}
+  \caption{Merit figure}
+  \label{tab:OP}
+\end{table}
+\FloatBarrier

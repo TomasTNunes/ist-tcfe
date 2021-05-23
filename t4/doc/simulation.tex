@@ -3,85 +3,76 @@
 
 \subsection{Operating Point Analysis}
 
-Table~\ref{tab:op} shows the simulated operating point results for the circuit
-under analysis. Compared to the theoretical analysis results, one notices the
-following differences: describe and explain the differences.
+Once again, the simulated operating points were computed to check if the transistors were working in the correct regions. \par
+Table  shows the simulated operating point results for the circuit
+under analysis.
 
 \begin{table}[h]
   \centering
   \begin{tabular}{|l|r|}
     \hline    
-    {\bf Name} & {\bf Value [A or V]} \\ \hline
-    \input{../sim/op_tab}
+    {\bf Name} & {\bf Value [V]} \\ \hline
+    \input{../sim/OP_tab}
   \end{tabular}
-  \caption{Operating point. A variable preceded by @ is of type {\em current}
-    and expressed in Ampere; other variables are of type {\it voltage} and expressed in
-    Volt.}
-  \label{tab:op}
+  \caption{Operating point}
+  \label{tab:OP_sim}
 \end{table}
 
-\lipsum[1-1]
-
-
-\subsection{Transient Analysis}
-
-Figure~\ref{fig:trans} shows the simulated transient analysis results for the
-circuit under analysis. Compared to the theoretical analysis results, one
-notices the following differences: describe and explain the differences.
-
-\begin{figure}[h] \centering
-\includegraphics[width=0.6\linewidth]{trans.pdf}
-\caption{Transient output voltage}
-\label{fig:trans}
-\end{figure}
-
-\lipsum[1-1]
-
+Here the transistors are working in the Forward Active Region. The values are compared with the theoretical predictions in Section \ref{sec:sbs}.
 
 
 \subsection{Frequency Analysis}
-
-\subsubsection{Magnitude Response}
-
-Figure~\ref{fig:acm} shows the magnitude of the frequency response for the
-circuit under analysis. Compared to the theoretical analysis results, one
-notices the following differences: describe and explain the differences.
+The frequency analysis was done in order to obtain the gain of the circuit as a function of the frequency. \par
+The following plot shows the function we obtained for $V_{out}$.
 
 \begin{figure}[h] \centering
-\includegraphics[width=0.6\linewidth]{acm.pdf}
-\caption{Magnitude response}
-\label{fig:acm}
+\includegraphics[width=0.5\linewidth]{vo2f.pdf}
+\caption{vOUT (dB)}
+\label{fig:vOUT}
 \end{figure}
+\FloatBarrier
 
-\lipsum[1-1]
+From this analysis, we can also obtain the values for the upper and lower cut off frequencies, which allows us to compute the bandwidth. the input impedance and the output impedance, where we used a different circuit with $V_{IN}$ and $R_{IN}$ disconnected and an output voltage source. \par
+The values obtained for the impedances and for the gain are presented in the following table. They are compared with the theoretical calculations in Section \ref{sec:sbs}.
 
-\subsubsection{Phase Response}
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value [$\Omega]$} \\ \hline
+    \input{../sim/data_tab}
+  \end{tabular}
+  \caption{Gain, input impedance and output impedance}
+  \label{tab:IN_out_sim}
+\end{table}
 
-Figure~\ref{fig:acp} shows the magnitude of the frequency response for the
-circuit under analysis. Compared to the theoretical analysis results, one
-notices the following differences: describe and explain the differences.
-
-\begin{figure}[h] \centering
-\includegraphics[width=0.6\linewidth]{acp.pdf}
-\caption{Phase response}
-\label{fig:acp}
-\end{figure}
-
-\lipsum[1-1]
-
-\subsubsection{Input Impedance}
-
-Figure~\ref{fig:zim} shows the magnitude of the frequency response for the
-circuit under analysis. Compared to the theoretical analysis results, one
-notices the following differences: describe and explain the differences.
-
-\begin{figure}[h] \centering
-\includegraphics[width=0.6\linewidth]{zim.pdf}
-\caption{Input impedance}
-\label{fig:zim}
-\end{figure}
-
-\lipsum[1-1]
+Here we present the values of the cutt off frequencies and the value of the bandwidth. Once again, these are compared with the theoretical results in Section \ref{sec:sbs}.
 
 
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value [$\Omega]$} \\ \hline
+    \input{../sim/freq_tab}
+  \end{tabular}
+  \caption{Bandwith}
+  \label{tab:Bandwith_sim}
+\end{table}
+\pagebreak
+
+\subsection{Merit Figure}
+In this section, we present the costs of the components and the total cost of the circuit, as well as the merit figure.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value [Mu]} \\ \hline
+    \input{../sim/merit_tab}
+  \end{tabular}
+  \caption{Merit figure}
+  \label{tab:OP}
+\end{table}
+\FloatBarrier
 
