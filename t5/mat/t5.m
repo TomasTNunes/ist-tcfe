@@ -1,7 +1,7 @@
 clear all
 
 R1 = 1000
-R2 = 1000
+R2 = 10000
 R3 = 100000
 R4 = 1000
 C1 = 220e-9
@@ -28,9 +28,11 @@ print(f2, "teo_phase.eps", "-depsc");
 
 
 wL = 1/(R1*C1)
+fL = wL/(2*pi)
 wH = 1/(R2*C2)
+fH = wH/(2*pi)
 wO = sqrt(wL*wH)
-f = wO/(2*pi)
+fO = wO/(2*pi)
 
 gain = abs((R1*C1*wO*j)/(1+R1*C1*wO*j)*(1+R3/R4)*(1/(1+R2*C2*wO*j)))
 gain_db = 20*log10(abs(gain))
@@ -38,7 +40,7 @@ gain_db = 20*log10(abs(gain))
 Z_in = abs(R1 + 1/(j*wO*C1))
 Z_out = abs(1/(j*wO*C2+1/R2))
 
-Cost = (R1+R2+R3+R4)/1000 + (C1+C2)*1000000
+Cost = (R1+R2+R3+R4)/1000 + (C1+C2)*1000000 + 13323
 gain_deviation = abs(100-gain)
-frequency_deviation = abs(f-1000)
-Merit = 1/(Cost*gain_deviation*frequency_deviation)
+frequency_deviation = abs(fO-1000)
+Merit = 1/(Cost*(gain_deviation+frequency_deviation+10^(-6)))

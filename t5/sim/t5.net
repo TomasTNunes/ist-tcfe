@@ -52,14 +52,14 @@ Vee vee 0 -5.0
 Vin in 0 0 ac 1.0 sin(0 10m 1k)
 
 C1 in n_inv 220n
-C2 out 0 110n
+C2 out 0 220n
 
-X1 n_inv inv vcc vee out uA741
+X1 n_inv inv vcc vee out_amp uA741
 
 R1 n_inv 0 1000
-R4 inv 0 1000
-R3 out_amp inv 100000
-R2 out_amp out 1000
+R4 inv 0 500
+R3 out_amp inv 300000
+R2 out_amp out 10000
 
 * load
 RL out 0 8
@@ -83,7 +83,7 @@ print all
 
 * time analysis
 tran 1e-5 1e-2
-plot v(out)
+
 hardcopy vo1.ps v(out)
 
 
@@ -91,36 +91,39 @@ hardcopy vo1.ps v(out)
 ac dec 10 10 100MEG
 
 hardcopy vo1f.ps vdb(out)
+
 let phase_v(out) = 180/PI*ph(v(out))
+
 hardcopy phase.ps phase_v(out)
 
-*Ganho máximo
-let gain = vecmax(vdb(out))
-let gain_opamp= vecmax(vdb(out_amp))
-print gain gain_opamp
+*central frequency e ganho
+meas AC maximo MAX vdb(out) from=10 to=100MEG
+meas AC fO MAX_AT vdb(out) from=10 to=100MEG
+let gain_db = maximo
+let gain = 10^(gain_db/20)
+print gain gain_db fO
 
 *low and high cut-off
-let threshold = vecmax(vdb(out))-3
-meas ac lco WHEN vdb(out) = threshold RISE = 1
-meas ac uco WHEN vdb(out) = threshold CROSS = LAST
+let threshold = maximo-3
+meas ac fL WHEN vdb(out) = threshold RISE = 1
+meas ac fH WHEN vdb(out) = threshold CROSS = LAST
+
 
 *input impedance in kohm
 let Zin= v(in)[40]/vin#branch[40]/(-1)
 *print v(in) vin#branch
 *ainda falta ver qual é o máximo de corrente
 
-*central frequency
-meas AC maximo MAX vdb(out) from=10 to=100MEG
-meas AC fO MAX_AT vdb(out) from=10 to=100MEG
-print fO
 
 *merit figure
-let gain_dev=abs(10^(vecmax(vdb(out))/20)-100)
+let gain_dev = abs(gain-100)
 print gain_dev
-let central_dev=abs(fO-1000)
-let cost=1
-print central_dev cost
-let merit=1/(cost*gain_dev*central_dev)
+let freq_dev = abs(fO-1000)
+print freq_dev
+let cost = (1000+500+10000+300000)/1000 + (0.000000220+0.000000220)*1000000 + 13323
+print cost
+let merit = 1/(cost*(gain_dev+freq_dev+0.000001))
+print merit
 
 quit
 .endc 
