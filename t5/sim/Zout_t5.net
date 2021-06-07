@@ -50,14 +50,14 @@
 Vcc vcc 0 5.0
 Vee vee 0 -5.0
 
-C1 0 n_inv 220n
-C2 out 0 110n
+C1 0 n_inv 110n
+C2 out 0 220n
 
-X1 n_inv inv vcc vee out uA741
+X1 n_inv inv vcc vee out_amp uA741
 
 R1 n_inv 0 1000
 R4 inv 0 1000
-R3 out_amp inv 100000
+R3 out_amp inv 315000
 R2 out_amp out 1000
 
 * load
@@ -69,10 +69,9 @@ VL out 0 0.0 ac 1.0
 .control
 
 ac dec 10 10 100MEG
+*print vdb(out)
+let Zout = abs(v(out)[20]/i(VL)[20])
 
-let Zout = abs(v(out)[40]/i(VL)[40])
-*print v(out) vin#branch
-*ainda falta ver qual é o máximo de corrente
 
 echo "out_imp_TAB"
 print Zout

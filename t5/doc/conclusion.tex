@@ -1,14 +1,99 @@
+\section{Side-by-side}
+\label{sec:sbs}
+
+As a viewer's reference note, the theoretical values are presented on the left and the simulation values on the right.
+%Esquerda sao sempre valores teoricos, direita valores do Ngpsic
+
+\begin{table}[h]
+\begin{center}
+  \begin{tabular}{|c|c|}
+    \hline    
+    {\bf Name} & {\bf Value [Hz]} \\ \hline
+    \input{../mat/data1_teo}
+    \hline
+  \end{tabular}
+  \begin{tabular}{|c||c|}
+    \hline    
+    {\bf Name} & {\bf Value [Hz]} \\ \hline
+    \input{../sim/freq_tab}
+    \hline
+  \end{tabular}
+  \caption{Comparison 1}
+  \label{tab:comparison 1}
+\end{center}
+\end{table}
+\FloatBarrier
+
+\begin{table}[h]
+\begin{center}
+  \begin{tabular}{|c|c|}
+    \hline    
+    {\bf Name} & {\bf Value [dB]} \\ \hline
+    \input{../mat/data2_teo}
+    \hline
+  \end{tabular}
+  \begin{tabular}{|c||c|}
+    \hline    
+    {\bf Name} & {\bf Value [dB]} \\ \hline
+    \input{../sim/data_tab}
+    \hline
+  \end{tabular}
+  \caption{Comparison 2}
+  \label{tab:comparison 2}
+\end{center}
+\end{table}
+\FloatBarrier
+
+\begin{figure}[h] \centering
+\includegraphics[scale=0.35]{teo_gain.eps}
+\includegraphics[scale=0.27]{vo1f.pdf}
+\caption{Output voltage gain in order to frequency}
+\label{fig:comparison 3}
+\end{figure}
+\FloatBarrier
+
+\begin{figure}[h] \centering
+\includegraphics[scale=0.35]{teo_phase.eps}
+\includegraphics[scale=0.27]{phase.pdf}
+\caption{Phase in order to frequency}
+\label{fig:comparison 4}
+\end{figure}
+\FloatBarrier
+
+\begin{table}[h]
+\begin{center}
+  \begin{tabular}{|c|c|}
+    \hline    
+    {\bf Name} & {\bf Value [Hz][Mu]} \\ \hline
+    \input{../mat/data3_teo}
+    \hline
+  \end{tabular}
+  \begin{tabular}{|c||c|}
+    \hline    
+    {\bf Name} & {\bf Value [Hz][Mu]} \\ \hline
+    \input{../sim/merit_tab}
+    \hline
+  \end{tabular}
+  \caption{Comparison 4}
+  \label{tab:comparison 4}
+\end{center}
+\end{table}
+\FloatBarrier
+
+
+We can see that the cost is the same but the merit figure is higher using Ngspice's values, probably due to a higher bandwidth.
+
 \section{Conclusion}
 \label{sec:conclusion}
 
-In this laboratory assignment the objective of analysing an RC circuit has been
-achieved. Static, time and frequency analyses have been performed both
-theoretically using the Octave maths tool and by circuit simulation using the
-Ngspice tool. The simulation results matched the theoretical results
-precisely. The reason for this perfect match is the fact that this is a
-straightforward circuit containing only linear components, so the theoretical
-and simulation models cannot differ. For more complex components, the
-theoretical and simulation models could differ but this is not the case in this
-work.
+%All in all, this laboratory assignment showed that the difference between the theoretical models and the simulation is minimal, never differing more than one order of magnitude as seen in Section \ref{sec:sbs}. \par
 
-\lipsum[1-1]
+%This lab assignment showed us that the main purpose of the bypass capacitor $C_E$ in the gain stage is to avoid a gain loss
+%through resistor $R_E$ and the main purpose of resistor $R_E$ is to stabilize the temperature effect. In the DC component the temperature effect is most important while in AC the gain is. Therefore there needs to be an equilibrium, which is achieved by placing these components in parallel. \par
+ 
+%Also, for lower frequencies (DC) capacitor $C_E$ behaves like an open circuit, so the current goes through resistor $R_E$, stabilizing the temperature effect. For higher frequencies (AC) the capacitor behaves like a short circuit and therefore it is used to bypass the resistor $R_E$ , avoiding a reduction of the gain (gain is stable in the desired passband). \par
+
+%As for $R_C$, it increases the gain, so by playing with its value it is possible to achieve a better merit figure.
+
+
+

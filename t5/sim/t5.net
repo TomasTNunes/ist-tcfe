@@ -58,7 +58,7 @@ X1 n_inv inv vcc vee out_amp uA741
 
 R1 n_inv 0 1000
 R4 inv 0 1000
-R3 out_amp inv 300000
+R3 out_amp inv 315000
 R2 out_amp out 1000
 
 
@@ -90,17 +90,19 @@ hardcopy vo1.ps v(out)
 ac dec 10 10 100MEG
 
 hardcopy vo1f.ps vdb(out)
+echo vo1f_FIG
 *print vdb(out)
 
 let phase_v(out) = 180/PI*ph(v(out))
 
 hardcopy phase.ps phase_v(out)
+echo phase_FIG
 
 *central frequency e ganho
 meas AC maximo MAX vdb(out) from=10 to=100MEG
 meas AC fO MAX_AT vdb(out) from=10 to=100MEG
-let gain_db = maximo
-let gain = 10^(gain_db/20)
+let gaindb = maximo
+let gain = 10^(gaindb/20)
 
 
 *low and high cut-off
@@ -110,25 +112,25 @@ meas ac fH WHEN vdb(out) = threshold CROSS = LAST
 
 
 *input impedance in kohm
-let Zin= v(in)[40]/vin#branch[40]/(-1)
-*print v(in) vin#branch
-*ainda falta ver qual é o máximo de corrente
+let Zin= abs(v(in)[20]/vin#branch[20]/(-1))
+
+
 
 
 *merit figure
-let gain_dev = abs(gain-100)
+let gaindev = abs(gain-100)
 
-let freq_dev = abs(fO-1000)
+let freqdev = abs(fO-1000)
 
-let cost = (1000+1000+1000+300000)/1000 + (0.000000220+4*0.000000110)*1000000 + 13323
+let cost = (1000+1000+1000+330000)/1000 + (0.000000220+4*0.000000110)*1000000 + 13323
 
-let merit = 1/(cost*(gain_dev+freq_dev+0.000001))
+let merit = 1/(cost*(gaindev+freqdev+0.000001))
 
 
 
 
 echo  "data_TAB"
-print gain gain_db Zin 
+print gain gaindb Zin 
 echo  "data_END"
 
 echo  "freq_TAB"
@@ -136,7 +138,7 @@ print fL fH fO
 echo  "freq_END"
 
 echo  "merit_TAB"
-print gain_dev freq_dev cost merit
+print gaindev freqdev cost merit
 echo  "merit_END"
 
 
