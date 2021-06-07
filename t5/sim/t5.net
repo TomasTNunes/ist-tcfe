@@ -51,18 +51,17 @@ Vcc vcc 0 5.0
 Vee vee 0 -5.0
 Vin in 0 0 ac 1.0 sin(0 10m 1k)
 
-C1 in n_inv 220n
+C1 in n_inv 110n
 C2 out 0 220n
 
 X1 n_inv inv vcc vee out_amp uA741
 
 R1 n_inv 0 1000
-R4 inv 0 500
+R4 inv 0 1000
 R3 out_amp inv 300000
-R2 out_amp out 10000
+R2 out_amp out 1000
 
-* load
-RL out 0 8
+
 
 .op
 .end
@@ -79,7 +78,7 @@ set color4=violet
 set color5=rgb:3/8/0
 set color6=rgb:4/0/0 
 
-print all
+*print all
 
 * time analysis
 tran 1e-5 1e-2
@@ -91,6 +90,7 @@ hardcopy vo1.ps v(out)
 ac dec 10 10 100MEG
 
 hardcopy vo1f.ps vdb(out)
+*print vdb(out)
 
 let phase_v(out) = 180/PI*ph(v(out))
 
@@ -101,7 +101,7 @@ meas AC maximo MAX vdb(out) from=10 to=100MEG
 meas AC fO MAX_AT vdb(out) from=10 to=100MEG
 let gain_db = maximo
 let gain = 10^(gain_db/20)
-print gain gain_db fO
+
 
 *low and high cut-off
 let threshold = maximo-3
@@ -117,13 +117,31 @@ let Zin= v(in)[40]/vin#branch[40]/(-1)
 
 *merit figure
 let gain_dev = abs(gain-100)
-print gain_dev
+
 let freq_dev = abs(fO-1000)
-print freq_dev
-let cost = (1000+500+10000+300000)/1000 + (0.000000220+0.000000220)*1000000 + 13323
-print cost
+
+let cost = (1000+1000+1000+300000)/1000 + (0.000000220+4*0.000000110)*1000000 + 13323
+
 let merit = 1/(cost*(gain_dev+freq_dev+0.000001))
-print merit
+
+
+
+
+echo  "data_TAB"
+print gain gain_db Zin 
+echo  "data_END"
+
+echo  "freq_TAB"
+print fL fH fO
+echo  "freq_END"
+
+echo  "merit_TAB"
+print gain_dev freq_dev cost merit
+echo  "merit_END"
+
+
+
+
 
 quit
 .endc 
