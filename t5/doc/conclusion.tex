@@ -2,7 +2,6 @@
 \label{sec:sbs}
 
 As a viewer's reference note, the theoretical values are presented on the left and the simulation values on the right.
-%Esquerda sao sempre valores teoricos, direita valores do Ngpsic
 
 \begin{table}[h]
 \begin{center}
@@ -24,6 +23,8 @@ As a viewer's reference note, the theoretical values are presented on the left a
 \end{table}
 \FloatBarrier
 
+As seen, all values are of the same magnitude, so the differences are minimal.
+
 \begin{table}[h]
 \begin{center}
   \begin{tabular}{|c|c|}
@@ -44,6 +45,8 @@ As a viewer's reference note, the theoretical values are presented on the left a
 \end{table}
 \FloatBarrier
 
+The gains and impedances are also identical as observed in the table above.
+
 \begin{figure}[h] \centering
 \includegraphics[scale=0.35]{teo_gain.eps}
 \includegraphics[scale=0.27]{vo1f.pdf}
@@ -52,6 +55,8 @@ As a viewer's reference note, the theoretical values are presented on the left a
 \end{figure}
 \FloatBarrier
 
+The theoretical and simulated output voltage gain functions also behave identically, as observed in the plots.
+
 \begin{figure}[h] \centering
 \includegraphics[scale=0.35]{teo_phase.eps}
 \includegraphics[scale=0.27]{phase.pdf}
@@ -59,6 +64,8 @@ As a viewer's reference note, the theoretical values are presented on the left a
 \label{fig:comparison 4}
 \end{figure}
 \FloatBarrier
+
+The phase plots in order to frequency may seem different at first, but they show the same behavior: the amplitudes are 180 degrees on both plots, but the origin of the plots are in different spots.
 
 \begin{table}[h]
 \begin{center}
@@ -80,20 +87,16 @@ As a viewer's reference note, the theoretical values are presented on the left a
 \end{table}
 \FloatBarrier
 
-
-We can see that the cost is the same but the merit figure is higher using Ngspice's values, probably due to a higher bandwidth.
+Here, apart from the frequency deviation and merit, all values are of the same magnitude. The simulation's merit is higher because of the frequency deviation, which is null in Ngspice's results, whereas in Octave it isn't.
 
 \section{Conclusion}
 \label{sec:conclusion}
 
-%All in all, this laboratory assignment showed that the difference between the theoretical models and the simulation is minimal, never differing more than one order of magnitude as seen in Section \ref{sec:sbs}. \par
+All in all, this laboratory assignment showed that the difference between the theoretical models and the simulation is minimal, never differing significantly as seen in Section \ref{sec:sbs}. \par
 
-%This lab assignment showed us that the main purpose of the bypass capacitor $C_E$ in the gain stage is to avoid a gain loss
-%through resistor $R_E$ and the main purpose of resistor $R_E$ is to stabilize the temperature effect. In the DC component the temperature effect is most important while in AC the gain is. Therefore there needs to be an equilibrium, which is achieved by placing these components in parallel. \par
- 
-%Also, for lower frequencies (DC) capacitor $C_E$ behaves like an open circuit, so the current goes through resistor $R_E$, stabilizing the temperature effect. For higher frequencies (AC) the capacitor behaves like a short circuit and therefore it is used to bypass the resistor $R_E$ , avoiding a reduction of the gain (gain is stable in the desired passband). \par
+This lab assignment showed us how to design a BPF circuit, which are widely used in wireless transmitters and receivers, being a key component in many contemporary applications. Once again, the in-person lab class gave us a hint of how the pratical approach differs from programmed simulations. \par
 
-%As for $R_C$, it increases the gain, so by playing with its value it is possible to achieve a better merit figure.
+We consider that the merit achieved is frankly good, which means our circuit would be a good solution in terms of quality-cost relation for a company. In the end of the day, that will be one of multiple challenges in an engineer's life.
 
 
 

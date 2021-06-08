@@ -61,7 +61,7 @@ def combinationUtilcon(arr, data, start,
 global res
 global con
 res=[]
-arr = [1000,1000,1000,10000,10000,10000,100000,100000,100000,2000,3000,20000,30000,200000,300000];
+arr = [1000,1000,1000,10000,10000,10000,100000,100000,100000,2000,3000,20000,30000,200000,300000,315000,310000];
 r = 4;
 n = len(arr);
 
@@ -87,7 +87,7 @@ min_gain_dev=9999
 min_freq_dev=9999
 
 for re in res:
-	perm_re = list(permutations(re))
+	perm_re = set(list(permutations(re)))
 	for per_re in perm_re:
 		R1 = per_re[0]
 		R2 = per_re[1]
@@ -95,7 +95,7 @@ for re in res:
 		R4 = per_re[3]
 
 		for co in con:
-			perm_co = list(permutations(co))
+			perm_co = set(list(permutations(co)))
 			for per_co in perm_co:
 				C1 = per_co[0]
 				C2 = per_co[1]
@@ -107,11 +107,6 @@ for re in res:
 
 				gain = abs((R1*C1*wO*complex(0,1))/(1+R1*C1*wO*complex(0,1))*(1+R3/R4)*(1/(1+R2*C2*wO*complex(0,1))))
 
-				if C2 == 0.000000110:
-					C2 = C2*4
-
-				if C1 == 0.000000110:
-					C1 = C2*4
 
 				Cost = (R1+R2+R3+R4)/1000 + (C1+C2)*1000000 + 13323
 				gain_deviation = abs(100-gain)
@@ -142,10 +137,8 @@ for re in res:
 				print('Merit = %.9f'% Merit)
 				print('\n\n')
 
-print()
 print(max_merit)
 print(min_freq_dev)
 print(min_gain_dev)
-
 
 sys.stdout.close()
