@@ -27,9 +27,9 @@ title("Phase");
 print(f2, "teo_phase.eps", "-depsc");
 
 
-wL = 1/(R1*C2)
+wL = 1/(R2*C2)
 fL = wL/(2*pi)
-wH = 1/(R2*C1)
+wH = 1/(R1*C1)
 fH = wH/(2*pi)
 wO = sqrt(wL*wH)
 fO = wO/(2*pi)
